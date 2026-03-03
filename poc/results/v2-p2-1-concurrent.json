@@ -1,0 +1,99 @@
+{
+  "testId": "V2-P2-1",
+  "testName": "V2 동시 세션 안정성",
+  "timestamp": "2026-03-03T16:47:53.649Z",
+  "totalDurationMs": 54544,
+  "result": "PASS",
+  "phase1": {
+    "label": "3개 동시 v2_prompt",
+    "results": [
+      {
+        "id": "v2-p1-coder-1",
+        "prompt": "너는 v2-p1-coder-1이다. \"1 * 1\"의 결과를 숫자만 답해.",
+        "success": true,
+        "resultText": "1",
+        "durationMs": 15971,
+        "costUsd": 0.20083475,
+        "error": null
+      },
+      {
+        "id": "v2-p1-coder-2",
+        "prompt": "너는 v2-p1-coder-2이다. \"2 * 2\"의 결과를 숫자만 답해.",
+        "success": true,
+        "resultText": "4",
+        "durationMs": 16324,
+        "costUsd": 0.20083475,
+        "error": null
+      },
+      {
+        "id": "v2-p1-coder-3",
+        "prompt": "너는 v2-p1-coder-3이다. \"3 * 3\"의 결과를 숫자만 답해.",
+        "success": true,
+        "resultText": "9",
+        "durationMs": 15423,
+        "costUsd": 0.0538475,
+        "error": null
+      }
+    ],
+    "allSuccess": true,
+    "durationMs": 16332
+  },
+  "phase2": {
+    "label": "5개 동시 v2_prompt",
+    "results": [
+      {
+        "id": "v2-p2-coder-1",
+        "prompt": "너는 v2-p2-coder-1이다. \"1 * 1\"의 결과를 숫자만 답해.",
+        "success": true,
+        "resultText": "1",
+        "durationMs": 38211,
+        "costUsd": 0.20083475,
+        "error": null
+      },
+      {
+        "id": "v2-p2-coder-2",
+        "prompt": "너는 v2-p2-coder-2이다. \"2 * 2\"의 결과를 숫자만 답해.",
+        "success": true,
+        "resultText": "4",
+        "durationMs": 23728,
+        "costUsd": 0.20083475,
+        "error": null
+      },
+      {
+        "id": "v2-p2-coder-3",
+        "prompt": "너는 v2-p2-coder-3이다. \"3 * 3\"의 결과를 숫자만 답해.",
+        "success": true,
+        "resultText": "9",
+        "durationMs": 37711,
+        "costUsd": 0.20083475,
+        "error": null
+      },
+      {
+        "id": "v2-p2-coder-4",
+        "prompt": "너는 v2-p2-coder-4이다. \"4 * 4\"의 결과를 숫자만 답해.",
+        "success": true,
+        "resultText": "16",
+        "durationMs": 37357,
+        "costUsd": 0.0263855,
+        "error": null
+      },
+      {
+        "id": "v2-p2-coder-5",
+        "prompt": "너는 v2-p2-coder-5이다. \"5 * 5\"의 결과를 숫자만 답해.",
+        "success": true,
+        "resultText": "25",
+        "durationMs": 37463,
+        "costUsd": 0.0263855,
+        "error": null
+      }
+    ],
+    "allSuccess": true,
+    "durationMs": 38211
+  },
+  "criteria": {
+    "phase1AllSuccess": true,
+    "phase2AllSuccess": true,
+    "allWithin60Seconds": true
+  },
+  "nextStep": "V2-P2-1 PASS → V2-P2-2 (V2 Agent Teams 기본 동작) 진행"
+}

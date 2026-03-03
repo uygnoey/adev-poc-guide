@@ -1,0 +1,200 @@
+{
+  "testId": "V2-P3",
+  "testName": "V2 디스크 기반 IPC 확인",
+  "timestamp": "2026-03-03T16:56:06.254Z",
+  "durationMs": 136690,
+  "result": "PASS",
+  "criteria": {
+    "teamDirectoryFound": true,
+    "anyFileFound": true,
+    "jsonParseable": true,
+    "inboxStructureFound": true
+  },
+  "watchDirs": [
+    "C:\\Users\\yeongyu\\.claude\\teams",
+    "C:\\Users\\yeongyu\\.claude\\tasks"
+  ],
+  "discoveries": [
+    {
+      "timestamp": "2026-03-03T16:54:21.827Z",
+      "elapsedMs": 32258,
+      "path": "C:\\Users\\yeongyu\\.claude\\teams\\v2-ipc-team",
+      "relativePath": "teams\\v2-ipc-team",
+      "type": "directory"
+    },
+    {
+      "timestamp": "2026-03-03T16:54:21.827Z",
+      "elapsedMs": 32258,
+      "path": "C:\\Users\\yeongyu\\.claude\\teams\\v2-ipc-team\\config.json",
+      "relativePath": "teams\\v2-ipc-team\\config.json",
+      "type": "file",
+      "size": 530,
+      "content": {
+        "name": "v2-ipc-team",
+        "description": "IPC 팀 테스트 - Agent Teams 기능 검증",
+        "createdAt": 1772556861318,
+        "leadAgentId": "team-lead@v2-ipc-team",
+        "leadSessionId": "cc597d80-db49-4fc9-b853-4f478bd02ea7",
+        "members": [
+          {
+            "agentId": "team-lead@v2-ipc-team",
+            "name": "team-lead",
+            "agentType": "team-lead",
+            "model": "claude-opus-4-6",
+            "joinedAt": 1772556861318,
+            "tmuxPaneId": "",
+            "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+            "subscriptions": []
+          }
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-03-03T16:54:21.828Z",
+      "elapsedMs": 32258,
+      "path": "C:\\Users\\yeongyu\\.claude\\tasks\\v2-ipc-team",
+      "relativePath": "tasks\\v2-ipc-team",
+      "type": "directory"
+    },
+    {
+      "timestamp": "2026-03-03T16:54:21.828Z",
+      "elapsedMs": 32258,
+      "path": "C:\\Users\\yeongyu\\.claude\\tasks\\v2-ipc-team\\.lock",
+      "relativePath": "tasks\\v2-ipc-team\\.lock",
+      "type": "file",
+      "size": 0
+    },
+    {
+      "timestamp": "2026-03-03T16:54:26.443Z",
+      "elapsedMs": 36879,
+      "path": "C:\\Users\\yeongyu\\.claude\\tasks\\v2-ipc-team\\1.json",
+      "relativePath": "tasks\\v2-ipc-team\\1.json",
+      "type": "file",
+      "size": 263,
+      "content": {
+        "id": "1",
+        "subject": "observer",
+        "description": "Hello라고 답해. 팀에 합류했고 준비가 되었다는 것을 팀 리더에게 알려줘.",
+        "status": "in_progress",
+        "blocks": [],
+        "blockedBy": [],
+        "metadata": {
+          "_internal": true
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-03T16:54:29.512Z",
+      "elapsedMs": 39948,
+      "path": "C:\\Users\\yeongyu\\.claude\\teams\\v2-ipc-team\\inboxes",
+      "relativePath": "teams\\v2-ipc-team\\inboxes",
+      "type": "directory"
+    },
+    {
+      "timestamp": "2026-03-03T16:54:29.512Z",
+      "elapsedMs": 39948,
+      "path": "C:\\Users\\yeongyu\\.claude\\teams\\v2-ipc-team\\inboxes\\observer.json",
+      "relativePath": "teams\\v2-ipc-team\\inboxes\\observer.json",
+      "type": "file",
+      "size": 167,
+      "content": [
+        {
+          "from": "team-lead",
+          "text": "상태 보고",
+          "summary": "상태 보고 요청",
+          "timestamp": "2026-03-03T16:54:29.320Z",
+          "read": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-03T16:54:31.048Z",
+      "elapsedMs": 41483,
+      "path": "C:\\Users\\yeongyu\\.claude\\teams\\v2-ipc-team\\inboxes\\team-lead.json",
+      "relativePath": "teams\\v2-ipc-team\\inboxes\\team-lead.json",
+      "type": "file",
+      "size": 294,
+      "content": [
+        {
+          "from": "observer",
+          "text": "Hello! 팀에 합류했습니다. 준비가 되었습니다. 언제든지 작업을 할당해 주세요.",
+          "summary": "Hello - 팀 합류 및 준비 완료",
+          "timestamp": "2026-03-03T16:54:30.704Z",
+          "color": "blue",
+          "read": false
+        }
+      ]
+    }
+  ],
+  "jsonFiles": [
+    {
+      "path": "C:\\Users\\yeongyu\\.claude\\teams\\v2-ipc-team\\config.json",
+      "content": {
+        "name": "v2-ipc-team",
+        "description": "IPC 팀 테스트 - Agent Teams 기능 검증",
+        "createdAt": 1772556861318,
+        "leadAgentId": "team-lead@v2-ipc-team",
+        "leadSessionId": "cc597d80-db49-4fc9-b853-4f478bd02ea7",
+        "members": [
+          {
+            "agentId": "team-lead@v2-ipc-team",
+            "name": "team-lead",
+            "agentType": "team-lead",
+            "model": "claude-opus-4-6",
+            "joinedAt": 1772556861318,
+            "tmuxPaneId": "",
+            "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+            "subscriptions": []
+          }
+        ]
+      }
+    },
+    {
+      "path": "C:\\Users\\yeongyu\\.claude\\tasks\\v2-ipc-team\\1.json",
+      "content": {
+        "id": "1",
+        "subject": "observer",
+        "description": "Hello라고 답해. 팀에 합류했고 준비가 되었다는 것을 팀 리더에게 알려줘.",
+        "status": "in_progress",
+        "blocks": [],
+        "blockedBy": [],
+        "metadata": {
+          "_internal": true
+        }
+      }
+    },
+    {
+      "path": "C:\\Users\\yeongyu\\.claude\\teams\\v2-ipc-team\\inboxes\\observer.json",
+      "content": [
+        {
+          "from": "team-lead",
+          "text": "상태 보고",
+          "summary": "상태 보고 요청",
+          "timestamp": "2026-03-03T16:54:29.320Z",
+          "read": false
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\yeongyu\\.claude\\teams\\v2-ipc-team\\inboxes\\team-lead.json",
+      "content": [
+        {
+          "from": "observer",
+          "text": "Hello! 팀에 합류했습니다. 준비가 되었습니다. 언제든지 작업을 할당해 주세요.",
+          "summary": "Hello - 팀 합류 및 준비 완료",
+          "timestamp": "2026-03-03T16:54:30.704Z",
+          "color": "blue",
+          "read": false
+        }
+      ]
+    }
+  ],
+  "queryResult": {
+    "subtype": "success",
+    "result": "---\n\n**모든 단계 완료 요약:**\n\n| 단계 | 작업 | 결과 |\n|------|------|------|\n| 1 | TeamCreate(\"v2-ipc-team\") | ✅ 성공 |\n| 2 | observer 추가 + \"Hello라고 답해\" 태스크 | ✅ 성공 (agent_id: observer@v2-ipc-team) |\n| 3 | SendMessage",
+    "total_cost_usd": 0.9006962500000001,
+    "num_turns": 16
+  },
+  "error": null,
+  "nextStep": "V2-P3 PASS → V2 Session API에서도 디스크 폴링 감시 가능"
+}

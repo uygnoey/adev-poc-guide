@@ -1,0 +1,38 @@
+{
+  "testId": "V2-P0",
+  "testName": "SDK V2 기본 동작 확인",
+  "timestamp": "2026-03-03T16:45:53.671Z",
+  "durationMs": 31204,
+  "result": "PASS",
+  "partA": {
+    "label": "unstable_v2_prompt()",
+    "success": true,
+    "resultSubtype": "success",
+    "resultText": "2",
+    "costUsd": 0.20051600000000003,
+    "durationMs": 23970,
+    "error": null
+  },
+  "partB": {
+    "label": "createSession + send + stream",
+    "success": true,
+    "extractedText": "4",
+    "resultSubtype": "success",
+    "costUsd": 0.20051600000000003,
+    "durationMs": 7234,
+    "eventTypes": [
+      "system",
+      "assistant",
+      "rate_limit_event",
+      "result"
+    ],
+    "eventCount": 4,
+    "error": null
+  },
+  "criteria": {
+    "partAPassed": true,
+    "partBPassed": true,
+    "within30Seconds": true
+  },
+  "nextStep": "V2-P0 PASS → V2-P2-1 (V2 동시 세션 안정성) 진행"
+}
