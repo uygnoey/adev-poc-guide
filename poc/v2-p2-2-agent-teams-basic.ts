@@ -157,12 +157,13 @@ async function main() {
 
 각 단계를 반드시 실행하고, 도구를 사용해서 수행해.`;
 
+  let session: ReturnType<typeof unstable_v2_createSession> | null = null;
   try {
     console.log("[Setup] V2 createSession + Agent Teams");
     console.log("[Setup] env:", JSON.stringify(envConfig));
     console.log("[Setup] model: sonnet, permissionMode: bypassPermissions\n");
 
-    const session = unstable_v2_createSession({
+    session = unstable_v2_createSession({
       model: "sonnet",
       permissionMode: "bypassPermissions",
       env: { ...process.env, ...envConfig },
@@ -220,11 +221,12 @@ async function main() {
       }
     }
 
-    session.close();
-    console.log("[Session] close() 완료");
   } catch (err) {
     error = err instanceof Error ? err.message : String(err);
     console.error(`\n[Error] ${error}`);
+  } finally {
+    session?.close();
+    console.log("[Session] close() 완료");
   }
 
   const durationMs = Date.now() - start;
@@ -279,4 +281,7 @@ async function main() {
   console.log(`결과: results/v2-p2-2-tool-calls.json + results/v2-p2-2-report.md`);
 }
 
-main();
+main().catch((err) => {
+  console.error("[FATAL]", err);
+  process.exit(1);
+});

@@ -244,8 +244,9 @@ async function main() {
   };
 
   const runQuery = async () => {
+    let session: ReturnType<typeof unstable_v2_createSession> | null = null;
     try {
-      const session = unstable_v2_createSession({
+      session = unstable_v2_createSession({
         model: "sonnet",
         permissionMode: "bypassPermissions",
         env: {
@@ -284,12 +285,12 @@ async function main() {
           break;
         }
       }
-
-      session.close();
     } catch (err) {
       error = err instanceof Error ? err.message : String(err);
       console.error(`[Query Error] ${error}`);
     } finally {
+      session?.close();
+      console.log("[Session] close() 완료");
       queryDone = true;
     }
   };
@@ -377,4 +378,7 @@ async function main() {
   console.log(`결과: results/v2-p3-disk-findings.json + results/v2-p3-report.md`);
 }
 
-main();
+main().catch((err) => {
+  console.error("[FATAL]", err);
+  process.exit(1);
+});

@@ -115,14 +115,21 @@ async function runSinglePrompt(id: string, prompt: string): Promise<QueryResult>
   let costUsd: number | null = null;
   let error: string | null = null;
 
+  let timeoutHandle: ReturnType<typeof setTimeout> | undefined;
   try {
     console.log(`  [${id}] 시작 - "${prompt}"`);
 
-    const result = await unstable_v2_prompt(prompt, {
+    const resultPromise = unstable_v2_prompt(prompt, {
       model: "sonnet",
       allowedTools: [],
       permissionMode: "bypassPermissions",
     });
+
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      timeoutHandle = setTimeout(() => reject(new Error(`타임아웃 (${TIMEOUT_MS}ms 초과)`)), TIMEOUT_MS);
+    });
+
+    const result = await Promise.race([resultPromise, timeoutPromise]);
 
     costUsd = result.total_cost_usd;
 
@@ -134,6 +141,8 @@ async function runSinglePrompt(id: string, prompt: string): Promise<QueryResult>
     }
   } catch (err) {
     error = err instanceof Error ? err.message : String(err);
+  } finally {
+    clearTimeout(timeoutHandle);
   }
 
   const durationMs = Date.now() - start;
@@ -226,4 +235,7 @@ async function main() {
   console.log(`결과: results/v2-p2-1-concurrent.json + results/v2-p2-1-report.md`);
 }
 
-main();
+main().catch((err) => {
+  console.error("[FATAL]", err);
+  process.exit(1);
+});

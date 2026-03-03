@@ -184,23 +184,24 @@ async function main() {
     error: null,
   };
 
+  let sessionB: ReturnType<typeof unstable_v2_createSession> | null = null;
   try {
     console.log('[B] createSession → send("2+2는? 숫자만 답해.") → stream()');
 
-    const session = unstable_v2_createSession({
+    sessionB = unstable_v2_createSession({
       model: "sonnet",
       allowedTools: [],
       permissionMode: "bypassPermissions",
     });
 
-    await session.send("2+2는? 숫자만 답해.");
+    await sessionB.send("2+2는? 숫자만 답해.");
 
-    for await (const msg of session.stream()) {
+    for await (const msg of sessionB.stream()) {
       partB.eventCount++;
       const msgType = (msg as Record<string, unknown>).type as string;
       if (!partB.eventTypes.includes(msgType)) partB.eventTypes.push(msgType);
 
-      if (Date.now() - start > TIMEOUT_MS) {
+      if (Date.now() - partBStart > TIMEOUT_MS) {
         partB.error = `타임아웃 (${TIMEOUT_MS}ms 초과)`;
         break;
       }
@@ -232,11 +233,12 @@ async function main() {
       }
     }
 
-    session.close();
-    console.log("[B] session.close() 완료");
   } catch (err) {
     partB.error = err instanceof Error ? err.message : String(err);
     console.error(`[B] ❌ ${partB.error}`);
+  } finally {
+    sessionB?.close();
+    console.log("[B] session.close() 완료");
   }
   partB.durationMs = Date.now() - partBStart;
 
@@ -246,7 +248,7 @@ async function main() {
   const criteria = {
     partAPassed: partA.success,
     partBPassed: partB.success,
-    within30Seconds: durationMs <= TIMEOUT_MS,
+    within30Seconds: partA.durationMs <= TIMEOUT_MS && partB.durationMs <= TIMEOUT_MS,
   };
   const pass = criteria.partAPassed && criteria.partBPassed && criteria.within30Seconds;
 
@@ -280,4 +282,7 @@ async function main() {
   console.log(`결과: results/v2-p0-events.json + results/v2-p0-report.md`);
 }
 
-main();
+main().catch((err) => {
+  console.error("[FATAL]", err);
+  process.exit(1);
+});

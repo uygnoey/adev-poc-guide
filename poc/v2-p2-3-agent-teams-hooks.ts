@@ -43,6 +43,7 @@ interface HookLogEntry {
   hookEvent: string;
   toolName?: string;
   toolInput?: unknown;
+  toolResponse?: unknown;
   teammateName?: string;
   teamName?: string;
   toolUseId?: string;
@@ -152,45 +153,48 @@ async function main() {
     ): Promise<HookJSONOutput> => {
       const elapsed = Date.now() - start;
 
-      try {
-        const rawInput = JSON.parse(JSON.stringify(input));
+      const entry: HookLogEntry = {
+        timestamp: new Date().toISOString(),
+        elapsedMs: elapsed,
+        hookEvent: eventName,
+        toolUseId: toolUseID,
+        isAgentTeams: false,
+        rawInput: null,
+      };
 
-        const entry: HookLogEntry = {
-          timestamp: new Date().toISOString(),
-          elapsedMs: elapsed,
-          hookEvent: eventName,
-          toolUseId: toolUseID,
-          isAgentTeams: false,
-          rawInput,
-        };
+      try {
+        entry.rawInput = structuredClone(input);
 
         if ("tool_name" in input) {
           entry.toolName = input.tool_name;
           entry.toolInput = input.tool_input;
+          if ("tool_response" in input) {
+            entry.toolResponse = input.tool_response;
+          }
           entry.isAgentTeams = AGENT_TEAMS_TOOLS.includes(input.tool_name);
 
           const marker = entry.isAgentTeams ? "🎯 AT-HOOK" : "🔧 HOOK";
           console.log(`[${marker}] ${eventName} (${elapsed}ms) tool: ${input.tool_name}`);
         }
 
-        if ("task_id" in input) {
+        if ("hook_event_name" in input && input.hook_event_name === "TaskCompleted") {
           entry.teammateName = input.teammate_name;
           entry.teamName = input.team_name;
           entry.isAgentTeams = true;
           console.log(`[🎯 AT-HOOK] ${eventName} (${elapsed}ms) task: ${input.task_subject}`);
         }
 
-        if ("teammate_name" in input && !("task_id" in input)) {
+        if ("hook_event_name" in input && input.hook_event_name === "TeammateIdle") {
           entry.teammateName = input.teammate_name;
           entry.teamName = input.team_name;
           entry.isAgentTeams = true;
           console.log(`[🎯 AT-HOOK] ${eventName} (${elapsed}ms) teammate: ${input.teammate_name}`);
         }
-
-        hookLogs.push(entry);
       } catch (err) {
         console.error(`[Hook Error] ${eventName} (${elapsed}ms): ${err}`);
       }
+
+      hookLogs.push(entry);
 
       return { continue: true };
     };
@@ -206,11 +210,12 @@ async function main() {
 
 각 단계를 반드시 도구를 사용해서 수행해.`;
 
+  let session: ReturnType<typeof unstable_v2_createSession> | null = null;
   try {
     console.log("[Setup] V2 createSession + hooks + Agent Teams");
     console.log("[Setup] hooks: PreToolUse, PostToolUse, TaskCompleted, TeammateIdle\n");
 
-    const session = unstable_v2_createSession({
+    session = unstable_v2_createSession({
       model: "sonnet",
       permissionMode: "bypassPermissions",
       env: {
@@ -258,11 +263,12 @@ async function main() {
       }
     }
 
-    session.close();
-    console.log("[Session] close() 완료");
   } catch (err) {
     error = err instanceof Error ? err.message : String(err);
     console.error(`\n[Error] ${error}`);
+  } finally {
+    session?.close();
+    console.log("[Session] close() 완료");
   }
 
   const durationMs = Date.now() - start;
@@ -323,4 +329,7 @@ async function main() {
   console.log(`결과: results/v2-p2-3-hook-logs.json + results/v2-p2-3-report.md`);
 }
 
-main();
+main().catch((err) => {
+  console.error("[FATAL]", err);
+  process.exit(1);
+});
