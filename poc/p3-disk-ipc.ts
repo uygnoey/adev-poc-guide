@@ -251,22 +251,25 @@ async function main() {
         for (const filePath of currentFiles) {
           if (!baselineFiles.has(filePath)) {
             baselineFiles.add(filePath);
-            const isDir = existsSync(filePath) && statSync(filePath).isDirectory();
+            let isDir = false;
+            let fileSize: number | undefined;
+            try {
+              const stat = statSync(filePath);
+              isDir = stat.isDirectory();
+              if (!isDir) fileSize = stat.size;
+            } catch {
+              continue; // File disappeared between walkDir and statSync
+            }
             const discovery: FileDiscovery = {
               timestamp: new Date().toISOString(),
               elapsedMs: elapsed,
               path: filePath,
               relativePath: relative(CLAUDE_DIR, filePath),
               type: isDir ? "directory" : "file",
+              size: fileSize,
             };
 
             if (!isDir) {
-              try {
-                discovery.size = statSync(filePath).size;
-              } catch {
-                // ignore
-              }
-
               if (filePath.endsWith(".json") || filePath.endsWith(".jsonl")) {
                 const { content, error: parseError } = tryParseJsonFile(filePath);
                 discovery.content = content;
@@ -366,16 +369,24 @@ async function main() {
     for (const filePath of walkDir(dir)) {
       if (!baselineFiles.has(filePath)) {
         baselineFiles.add(filePath);
-        const isDir = existsSync(filePath) && statSync(filePath).isDirectory();
+        let isDir = false;
+        let fileSize: number | undefined;
+        try {
+          const stat = statSync(filePath);
+          isDir = stat.isDirectory();
+          if (!isDir) fileSize = stat.size;
+        } catch {
+          continue; // File disappeared
+        }
         const discovery: FileDiscovery = {
           timestamp: new Date().toISOString(),
           elapsedMs: Date.now() - start,
           path: filePath,
           relativePath: relative(CLAUDE_DIR, filePath),
           type: isDir ? "directory" : "file",
+          size: fileSize,
         };
         if (!isDir) {
-          try { discovery.size = statSync(filePath).size; } catch { /* ignore */ }
           if (filePath.endsWith(".json") || filePath.endsWith(".jsonl")) {
             const { content, error: parseError } = tryParseJsonFile(filePath);
             discovery.content = content;

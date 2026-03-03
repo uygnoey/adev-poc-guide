@@ -29,7 +29,8 @@ const TIMEOUT_MS = 180_000; // Agent Teams는 시간이 더 걸릴 수 있으므
 // Agent Teams 관련 도구 이름 목록 (다양한 스펠링 대비)
 const AGENT_TEAMS_TOOLS = [
   "TeamCreate", "team_create",
-  "Task", "TaskCreate", "task_create",
+  "TaskCreate", "task_create",
+  "TaskList", "TaskUpdate", "TaskGet",
   "SendMessage", "send_message",
   "TeamDelete", "team_delete",
   "Agent",
@@ -253,13 +254,13 @@ async function main() {
 
   const criteria = {
     teamCreateDetected: hasToolName(["TeamCreate", "team_create"]),
-    taskDetected: hasToolName(["Task", "TaskCreate", "task_create"]),
+    taskDetected: hasToolName(["TaskCreate", "task_create", "TaskList", "TaskUpdate", "TaskGet"]),
     sendMessageDetected: hasToolName(["SendMessage", "send_message"]),
     teamDeleteDetected: hasToolName(["TeamDelete", "team_delete"]),
     anyAgentTeamsToolDetected: agentTeamsToolCalls.length > 0,
   };
 
-  const pass = criteria.anyAgentTeamsToolDetected;
+  const pass = criteria.teamCreateDetected;
 
   // 4. Dump
   const report: P22Report = {

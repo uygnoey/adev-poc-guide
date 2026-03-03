@@ -143,7 +143,12 @@ async function runSingleQuery(id: string, prompt: string): Promise<QueryResult> 
       }
 
       if (msg.type === "result") {
-        resultText = msg.subtype === "success" ? msg.result : msg.errors.join("; ");
+        if (msg.subtype === "success") {
+          resultText = msg.result;
+        } else {
+          resultText = msg.errors.join("; ");
+          error = `SDK result error: ${msg.subtype}`;
+        }
         break;
       }
     }

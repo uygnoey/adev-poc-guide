@@ -36,7 +36,8 @@ const TIMEOUT_MS = 180_000; // 3분
 
 const AGENT_TEAMS_TOOLS = [
   "TeamCreate", "team_create",
-  "Task", "TaskCreate", "task_create",
+  "TaskCreate", "task_create",
+  "TaskList", "TaskUpdate", "TaskGet",
   "SendMessage", "send_message",
   "TeamDelete", "team_delete",
   "Agent",
@@ -164,47 +165,60 @@ async function main() {
       _options: { signal: AbortSignal }
     ): Promise<HookJSONOutput> => {
       const elapsed = Date.now() - start;
-      const rawInput = JSON.parse(JSON.stringify(input));
 
-      const entry: HookLogEntry = {
-        timestamp: new Date().toISOString(),
-        elapsedMs: elapsed,
-        hookEvent: eventName,
-        toolUseId: toolUseID,
-        isAgentTeams: false,
-        rawInput,
-      };
+      try {
+        const rawInput = JSON.parse(JSON.stringify(input));
 
-      if ("tool_name" in input) {
-        entry.toolName = input.tool_name;
-        entry.toolInput = input.tool_input;
-        entry.isAgentTeams = AGENT_TEAMS_TOOLS.includes(input.tool_name);
+        const entry: HookLogEntry = {
+          timestamp: new Date().toISOString(),
+          elapsedMs: elapsed,
+          hookEvent: eventName,
+          toolUseId: toolUseID,
+          isAgentTeams: false,
+          rawInput,
+        };
 
-        if ("tool_response" in input) {
-          entry.toolResponse = input.tool_response;
+        if ("tool_name" in input) {
+          entry.toolName = input.tool_name;
+          entry.toolInput = input.tool_input;
+          entry.isAgentTeams = AGENT_TEAMS_TOOLS.includes(input.tool_name);
+
+          if ("tool_response" in input) {
+            entry.toolResponse = input.tool_response;
+          }
+
+          const marker = entry.isAgentTeams ? "🎯 AT-HOOK" : "🔧 HOOK";
+          console.log(`[${marker}] ${eventName} (${elapsed}ms) tool: ${input.tool_name}`);
         }
 
-        const marker = entry.isAgentTeams ? "🎯 AT-HOOK" : "🔧 HOOK";
-        console.log(`[${marker}] ${eventName} (${elapsed}ms) tool: ${input.tool_name}`);
+        if ("task_id" in input) {
+          entry.taskId = input.task_id;
+          entry.taskSubject = input.task_subject;
+          entry.teammateName = input.teammate_name;
+          entry.teamName = input.team_name;
+          entry.isAgentTeams = true;
+          console.log(`[🎯 AT-HOOK] ${eventName} (${elapsed}ms) task: ${input.task_subject}`);
+        }
+
+        if ("teammate_name" in input && !("task_id" in input)) {
+          entry.teammateName = input.teammate_name;
+          entry.teamName = input.team_name;
+          entry.isAgentTeams = true;
+          console.log(`[🎯 AT-HOOK] ${eventName} (${elapsed}ms) teammate: ${input.teammate_name}`);
+        }
+
+        hookLogs.push(entry);
+      } catch (err) {
+        console.error(`[Hook Error] ${eventName} (${elapsed}ms): ${err}`);
+        hookLogs.push({
+          timestamp: new Date().toISOString(),
+          elapsedMs: elapsed,
+          hookEvent: eventName,
+          isAgentTeams: false,
+          rawInput: { error: String(err) },
+        });
       }
 
-      if ("task_id" in input) {
-        entry.taskId = input.task_id;
-        entry.taskSubject = input.task_subject;
-        entry.teammateName = input.teammate_name;
-        entry.teamName = input.team_name;
-        entry.isAgentTeams = true;
-        console.log(`[🎯 AT-HOOK] ${eventName} (${elapsed}ms) task: ${input.task_subject}`);
-      }
-
-      if ("teammate_name" in input && !("task_id" in input)) {
-        entry.teammateName = input.teammate_name;
-        entry.teamName = input.team_name;
-        entry.isAgentTeams = true;
-        console.log(`[🎯 AT-HOOK] ${eventName} (${elapsed}ms) teammate: ${input.teammate_name}`);
-      }
-
-      hookLogs.push(entry);
       return { continue: true };
     };
   }
