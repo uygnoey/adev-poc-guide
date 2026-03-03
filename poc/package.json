@@ -10,7 +10,12 @@
     "p2-2": "bun run p2-2-agent-teams-basic.ts",
     "p2-3": "bun run p2-3-agent-teams-hooks.ts",
     "p3": "bun run p3-disk-ipc.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "v2-p0": "bun run v2-p0-sdk-sanity.ts",
+    "v2-p2-1": "bun run v2-p2-1-concurrent-query.ts",
+    "v2-p2-2": "bun run v2-p2-2-agent-teams-basic.ts",
+    "v2-p2-3": "bun run v2-p2-3-agent-teams-hooks.ts",
+    "v2-p3": "bun run v2-p3-disk-ipc.ts"
   },
   "dependencies": {
     "@anthropic-ai/claude-agent-sdk": "^0.2.0"
