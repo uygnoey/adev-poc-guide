@@ -20,9 +20,11 @@
  *   - 경로가 다른 경우: find ~/.claude -name "*.json" -newer 로 탐색
  *   - 파일이 아예 없는 경우: Agent Teams 완전 제거 → 독립 query() + LanceDB 통신으로 전환
  *
- * 산출물: results/p3-disk-findings.json (발견된 파일 + 내용)
+ * 산출물:
+ *   - results/p3-disk-findings.json (발견된 파일 + 내용)
+ *   - results/p3-report.md
  *
- * 실행: npx tsx p3-disk-ipc.ts
+ * 실행: bun run p3-disk-ipc.ts
  */
 
 import { query } from "@anthropic-ai/claude-agent-sdk";
@@ -40,7 +42,6 @@ import { homedir } from "os";
 const TIMEOUT_MS = 180_000; // 3분
 const POLL_INTERVAL_MS = 500;
 
-// 감시 대상 경로
 const CLAUDE_DIR = join(homedir(), ".claude");
 const WATCH_DIRS = [
   join(CLAUDE_DIR, "teams"),
@@ -81,9 +82,71 @@ interface P3Report {
   nextStep: string;
 }
 
-/**
- * 디렉토리를 재귀적으로 탐색하여 모든 파일/디렉토리 경로를 반환
- */
+function generateMarkdown(report: P3Report): string {
+  const c = report.criteria;
+
+  return `# P3: 디스크 기반 IPC 확인 — 결과서
+
+## 개요
+
+| 항목 | 값 |
+|------|-----|
+| 테스트 ID | P3 |
+| 실행 시각 | ${report.timestamp} |
+| 소요 시간 | ${report.durationMs}ms |
+| **최종 결과** | **${report.result}** |
+
+## 환경
+
+| 항목 | 값 |
+|------|-----|
+| ~/.claude 존재 | ${report.claudeDirExists ? "YES" : "NO"} |
+| ~/.claude 내용 | \`[${report.claudeDirContents.join(", ")}]\` |
+| 감시 대상 | ${report.watchDirs.map((d) => `\`${d}\``).join(", ")} |
+
+## 성공 기준 체크
+
+| 기준 | 결과 |
+|------|------|
+| 팀 디렉토리 발견 | ${c.teamDirectoryFound ? "PASS" : "FAIL"} |
+| 파일 발견 (1개 이상) | ${c.anyFileFound ? "PASS" : "FAIL"} |
+| JSON 파싱 가능 | ${c.jsonParseable ? "PASS" : "FAIL"} |
+| inbox 구조 발견 | ${c.inboxStructureFound ? "PASS" : "FAIL"} |
+
+## 발견된 파일/디렉토리 (${report.discoveries.length}개)
+
+${report.discoveries.length > 0 ? `| 시간(ms) | 타입 | 경로 | 크기 |
+|---------|------|------|------|
+${report.discoveries.map((d) => `| ${d.elapsedMs} | ${d.type} | \`${d.relativePath}\` | ${d.size !== undefined ? `${d.size}B` : "-"} |`).join("\n")}` : "_발견된 파일 없음_"}
+
+## 파싱된 JSON 내용 (${report.jsonFiles.length}개)
+
+${report.jsonFiles.length > 0 ? report.jsonFiles.map((j) => `### \`${relative(CLAUDE_DIR, j.path)}\`
+
+\`\`\`json
+${JSON.stringify(j.content, null, 2).substring(0, 500)}
+\`\`\`
+`).join("\n") : "_파싱 가능한 JSON 파일 없음_"}
+
+## ~/.claude 기타 새 파일 (${report.fallbackSearchResults.length}개)
+
+${report.fallbackSearchResults.length > 0 ? report.fallbackSearchResults.map((f) => `- \`${relative(CLAUDE_DIR, f)}\``).join("\n") : "_없음_"}
+
+## query() 결과
+
+${report.queryResult ? `\`\`\`json\n${JSON.stringify(report.queryResult, null, 2)}\n\`\`\`` : "_미수신_"}
+
+${report.error ? `## 에러\n\n\`\`\`\n${report.error}\n\`\`\`` : ""}
+
+## 다음 단계
+
+> ${report.nextStep}
+
+---
+_생성: ${report.timestamp}_
+`;
+}
+
 function walkDir(dir: string): string[] {
   const results: string[] = [];
   if (!existsSync(dir)) return results;
@@ -103,19 +166,14 @@ function walkDir(dir: string): string[] {
   return results;
 }
 
-/**
- * JSON/JSONL 파일 파싱 시도
- */
 function tryParseJsonFile(filePath: string): { content: unknown; error?: string } {
   try {
     const raw = readFileSync(filePath, "utf-8").trim();
     if (!raw) return { content: null, error: "empty file" };
 
-    // JSON 시도
     try {
       return { content: JSON.parse(raw) };
     } catch {
-      // JSONL 시도
       const lines = raw.split("\n").filter((l: string) => l.trim());
       const parsed = lines.map((line: string) => {
         try {
@@ -144,7 +202,6 @@ async function main() {
   let queryResult: Record<string, unknown> | null = null;
   let error: string | null = null;
 
-  // 초기 상태 캡처
   const claudeDirExists = existsSync(CLAUDE_DIR);
   let claudeDirContents: string[] = [];
   if (claudeDirExists) {
@@ -155,14 +212,12 @@ async function main() {
     }
   }
 
-  // 초기 파일 목록 (비교 기준)
   const baselineFiles = new Set<string>();
   for (const dir of WATCH_DIRS) {
     for (const f of walkDir(dir)) {
       baselineFiles.add(f);
     }
   }
-  // ~/.claude 전체도 기준으로 캡처
   const baselineClaudeFiles = new Set(walkDir(CLAUDE_DIR));
 
   console.log(`[Setup] ~/.claude 존재: ${claudeDirExists}`);
@@ -170,7 +225,7 @@ async function main() {
   console.log(`[Setup] 감시 대상: ${WATCH_DIRS.join(", ")}`);
   console.log(`[Setup] 기준 파일 수: teams/tasks=${baselineFiles.size}, ~/.claude 전체=${baselineClaudeFiles.size}`);
 
-  // 2. Execute: query()와 폴링을 동시 실행
+  // 2. Execute
   const prompt = `너는 Agent Teams 기능을 사용해야 한다.
 
 다음을 순서대로 수행해:
@@ -186,18 +241,15 @@ async function main() {
   let queryDone = false;
   let pollCount = 0;
 
-  // 폴링 함수
   const pollFilesystem = async () => {
     while (!queryDone && Date.now() - start < TIMEOUT_MS) {
       pollCount++;
       const elapsed = Date.now() - start;
 
-      // 감시 대상 디렉토리 체크
       for (const dir of WATCH_DIRS) {
         const currentFiles = walkDir(dir);
         for (const filePath of currentFiles) {
           if (!baselineFiles.has(filePath)) {
-            // 새 파일 발견!
             baselineFiles.add(filePath);
             const isDir = existsSync(filePath) && statSync(filePath).isDirectory();
             const discovery: FileDiscovery = {
@@ -215,7 +267,6 @@ async function main() {
                 // ignore
               }
 
-              // JSON 파싱 시도
               if (filePath.endsWith(".json") || filePath.endsWith(".jsonl")) {
                 const { content, error: parseError } = tryParseJsonFile(filePath);
                 discovery.content = content;
@@ -235,7 +286,6 @@ async function main() {
         }
       }
 
-      // ~/.claude 전체에서도 새 파일 체크 (5초 간격으로)
       if (pollCount % 10 === 0) {
         const currentClaudeFiles = walkDir(CLAUDE_DIR);
         for (const filePath of currentClaudeFiles) {
@@ -243,7 +293,6 @@ async function main() {
             baselineClaudeFiles.add(filePath);
             const isWatchDir = WATCH_DIRS.some((d) => filePath.startsWith(d));
             if (!isWatchDir) {
-              // 감시 대상 외 경로에서 발견
               const relPath = relative(CLAUDE_DIR, filePath);
               console.log(`[Poll #${pollCount}] 📁 ~/.claude 새 파일 (${Date.now() - start}ms): ${relPath}`);
               fallbackSearchResults.push(filePath);
@@ -256,7 +305,6 @@ async function main() {
     }
   };
 
-  // query 실행 함수
   const runQuery = async () => {
     try {
       const q = query({
@@ -308,10 +356,9 @@ async function main() {
     }
   };
 
-  // 동시 실행
   await Promise.all([runQuery(), pollFilesystem()]);
 
-  // 마지막 한번 더 폴링 (query 종료 직후)
+  // 마지막 한번 더 폴링
   await new Promise((r) => setTimeout(r, 1000));
   for (const dir of WATCH_DIRS) {
     for (const filePath of walkDir(dir)) {
@@ -377,6 +424,7 @@ async function main() {
   };
 
   writeFileSync("results/p3-disk-findings.json", JSON.stringify(report, null, 2));
+  writeFileSync("results/p3-report.md", generateMarkdown(report));
 
   // 5. 결론 출력
   console.log("\n" + "=".repeat(60));
@@ -410,7 +458,7 @@ async function main() {
 
   if (error) console.log(`\n에러: ${error}`);
   console.log(`\n다음 단계: ${report.nextStep}`);
-  console.log(`결과 파일: results/p3-disk-findings.json`);
+  console.log(`결과: results/p3-disk-findings.json + results/p3-report.md`);
 }
 
 main();

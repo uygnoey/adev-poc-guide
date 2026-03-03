@@ -14,9 +14,11 @@
  *   - env가 전달 안 되는 경우: settingSources로 시도
  *   - Agent Teams 자체가 안 되는 경우: Agent Teams 제거 → DESIGN Phase도 독립 query()로 전환
  *
- * 산출물: results/p2-2-tool-calls.json (감지된 tool_use 목록)
+ * 산출물:
+ *   - results/p2-2-tool-calls.json (감지된 tool_use 목록)
+ *   - results/p2-2-report.md
  *
- * 실행: npx tsx p2-2-agent-teams-basic.ts
+ * 실행: bun run p2-2-agent-teams-basic.ts
  */
 
 import { query } from "@anthropic-ai/claude-agent-sdk";
@@ -65,6 +67,75 @@ interface P22Report {
   rawEvents: unknown[];
   error: string | null;
   nextStep: string;
+}
+
+function generateMarkdown(report: P22Report): string {
+  const c = report.criteria;
+
+  return `# P2-2: Agent Teams 기본 동작 — 결과서
+
+## 개요
+
+| 항목 | 값 |
+|------|-----|
+| 테스트 ID | P2-2 |
+| 실행 시각 | ${report.timestamp} |
+| 소요 시간 | ${report.durationMs}ms |
+| **최종 결과** | **${report.result}** |
+
+## 환경 설정
+
+\`\`\`json
+${JSON.stringify(report.envConfig, null, 2)}
+\`\`\`
+
+## 성공 기준 체크
+
+| 기준 | 결과 |
+|------|------|
+| TeamCreate 감지 | ${c.teamCreateDetected ? "PASS" : "FAIL"} |
+| Task/TaskCreate 감지 | ${c.taskDetected ? "PASS" : "FAIL"} |
+| SendMessage 감지 | ${c.sendMessageDetected ? "PASS" : "FAIL"} |
+| TeamDelete 감지 | ${c.teamDeleteDetected ? "PASS" : "FAIL"} |
+| **Agent Teams 도구 1개 이상 감지** | **${c.anyAgentTeamsToolDetected ? "PASS" : "FAIL"}** |
+
+## 감지된 도구 호출
+
+### 전체 tool_use (${report.toolCalls.length}개)
+
+| 시간(ms) | 도구명 | Agent Teams? | 입력 |
+|---------|--------|-------------|------|
+${report.toolCalls.length > 0 ? report.toolCalls.map((t) => `| ${t.elapsedMs} | \`${t.blockName}\` | ${t.isAgentTeams ? "YES" : "no"} | ${JSON.stringify(t.blockInput).substring(0, 60)} |`).join("\n") : "| - | _없음_ | - | - |"}
+
+### Agent Teams 도구만 (${report.agentTeamsToolCalls.length}개)
+
+${report.agentTeamsToolCalls.length > 0 ? report.agentTeamsToolCalls.map((t) => `- **${t.blockName}** (${t.elapsedMs}ms): \`${JSON.stringify(t.blockInput).substring(0, 100)}\``).join("\n") : "_Agent Teams 도구 미감지_"}
+
+## 감지된 이벤트 타입
+
+\`[${report.allEventTypes.join(", ")}]\`
+
+## 감지된 도구 이름 (전체)
+
+\`[${report.allToolNames.join(", ")}]\`
+
+## Claude 응답 텍스트
+
+${report.assistantTexts.length > 0 ? report.assistantTexts.map((t) => `> ${t.substring(0, 200)}`).join("\n\n") : "_텍스트 없음_"}
+
+## result 이벤트
+
+${report.resultEvent ? `\`\`\`json\n${JSON.stringify(report.resultEvent, null, 2)}\n\`\`\`` : "_미수신_"}
+
+${report.error ? `## 에러\n\n\`\`\`\n${report.error}\n\`\`\`` : ""}
+
+## 다음 단계
+
+> ${report.nextStep}
+
+---
+_생성: ${report.timestamp}_
+`;
 }
 
 async function main() {
@@ -126,7 +197,6 @@ async function main() {
       const msgType = (msg as Record<string, unknown>).type as string;
       if (!allEventTypes.includes(msgType)) allEventTypes.push(msgType);
 
-      // assistant 이벤트에서 tool_use 감지
       if (msg.type === "assistant") {
         for (const block of msg.message.content) {
           if (block.type === "text") {
@@ -153,7 +223,6 @@ async function main() {
         }
       }
 
-      // result 이벤트
       if (msg.type === "result") {
         const resultText = msg.subtype === "success" ? msg.result : msg.errors.join("; ");
         resultEvent = {
@@ -189,7 +258,6 @@ async function main() {
     anyAgentTeamsToolDetected: agentTeamsToolCalls.length > 0,
   };
 
-  // TeamCreate 감지가 최소 기준
   const pass = criteria.anyAgentTeamsToolDetected;
 
   // 4. Dump
@@ -216,6 +284,7 @@ async function main() {
   };
 
   writeFileSync("results/p2-2-tool-calls.json", JSON.stringify(report, null, 2));
+  writeFileSync("results/p2-2-report.md", generateMarkdown(report));
 
   // 5. 결론 출력
   console.log("\n" + "=".repeat(60));
@@ -240,7 +309,7 @@ async function main() {
 
   if (error) console.log(`\n에러: ${error}`);
   console.log(`\n다음 단계: ${report.nextStep}`);
-  console.log(`결과 파일: results/p2-2-tool-calls.json`);
+  console.log(`결과: results/p2-2-tool-calls.json + results/p2-2-report.md`);
 }
 
 main();

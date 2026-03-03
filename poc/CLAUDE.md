@@ -32,10 +32,20 @@ P0 → P2-1 → P2-2 → P2-3 → P3
 ## 실행 방법
 ```bash
 cd poc
-npm install
-npx tsx p0-sdk-sanity.ts        # P0
-npx tsx p2-1-concurrent-query.ts # P2-1
-npx tsx p2-2-agent-teams-basic.ts # P2-2
-npx tsx p2-3-agent-teams-hooks.ts # P2-3
-npx tsx p3-disk-ipc.ts            # P3
+bun install
+bun run p0-sdk-sanity.ts         # P0   → results/p0-events.json + p0-report.md
+bun run p2-1-concurrent-query.ts # P2-1 → results/p2-1-concurrent.json + p2-1-report.md
+bun run p2-2-agent-teams-basic.ts # P2-2 → results/p2-2-tool-calls.json + p2-2-report.md
+bun run p2-3-agent-teams-hooks.ts # P2-3 → results/p2-3-hook-logs.json + p2-3-report.md
+bun run p3-disk-ipc.ts            # P3   → results/p3-disk-findings.json + p3-report.md
+
+# 또는 npm scripts로:
+bun run p0
+bun run p2-1
+bun run p2-2
+bun run p2-3
+bun run p3
+
+# 타입 체크:
+bun run typecheck
 ```

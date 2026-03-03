@@ -22,9 +22,11 @@
  *   - hooks가 options에 지원 안 되는 경우: 커맨드 기반 hooks (settings.json)로 시도
  *   - hooks 자체가 Agent Teams 도구를 못 잡는 경우: P3(디스크 IPC)로 감시 전략 전환
  *
- * 산출물: results/p2-3-hook-logs.json (훅 이벤트 목록)
+ * 산출물:
+ *   - results/p2-3-hook-logs.json (훅 이벤트 목록)
+ *   - results/p2-3-report.md
  *
- * 실행: npx tsx p2-3-agent-teams-hooks.ts
+ * 실행: bun run p2-3-agent-teams-hooks.ts
  */
 
 import { query, type HookInput, type HookJSONOutput } from "@anthropic-ai/claude-agent-sdk";
@@ -78,6 +80,71 @@ interface P23Report {
   nextStep: string;
 }
 
+function generateMarkdown(report: P23Report): string {
+  const c = report.criteria;
+
+  return `# P2-3: Agent Teams Hooks 감시 — 결과서
+
+## 개요
+
+| 항목 | 값 |
+|------|-----|
+| 테스트 ID | P2-3 |
+| 실행 시각 | ${report.timestamp} |
+| 소요 시간 | ${report.durationMs}ms |
+| **최종 결과** | **${report.result}** |
+
+## 성공 기준 체크
+
+| 기준 | 결과 |
+|------|------|
+| PreToolUse 훅 발생 | ${c.preToolUseHookFired ? "PASS" : "FAIL"} |
+| PostToolUse 훅 발생 | ${c.postToolUseHookFired ? "PASS" : "FAIL"} |
+| **Agent Teams 도구 in Hooks** | **${c.agentTeamsToolInHooks ? "PASS" : "FAIL"}** |
+| TaskCompleted 훅 발생 | ${c.taskCompletedFired ? "PASS" : "FAIL"} |
+| TeammateIdle 훅 발생 | ${c.teammateIdleFired ? "PASS" : "FAIL"} |
+
+## Hook 이벤트 통계
+
+| 이벤트 | 발생 횟수 |
+|--------|----------|
+${Object.entries(report.hookEventCounts).map(([k, v]) => `| ${k} | ${v} |`).join("\n") || "| _없음_ | 0 |"}
+
+**총 Hook 이벤트:** ${report.hookLogs.length}개
+**Agent Teams Hook:** ${report.agentTeamsHookLogs.length}개
+
+## Hook 이벤트 상세 (전체)
+
+| 시간(ms) | Hook 이벤트 | 도구명 | Agent Teams? |
+|---------|------------|--------|-------------|
+${report.hookLogs.length > 0 ? report.hookLogs.map((h) => `| ${h.elapsedMs} | ${h.hookEvent} | ${h.toolName ?? h.taskId ?? h.teammateName ?? "-"} | ${h.isAgentTeams ? "YES" : "no"} |`).join("\n") : "| - | _없음_ | - | - |"}
+
+## Agent Teams Hook 상세
+
+${report.agentTeamsHookLogs.length > 0 ? report.agentTeamsHookLogs.map((h) => `- **${h.hookEvent}** (${h.elapsedMs}ms): tool=\`${h.toolName ?? "-"}\` task=\`${h.taskId ?? "-"}\` teammate=\`${h.teammateName ?? "-"}\``).join("\n") : "_Agent Teams 관련 Hook 이벤트 미감지_"}
+
+## Stream tool_use vs Hook 비교
+
+| 소스 | 감지 수 | 도구 목록 |
+|------|--------|----------|
+| Stream (tool_use) | ${report.toolCallsFromStream.length} | ${report.toolCallsFromStream.map((t) => t.name).join(", ") || "-"} |
+| Hook (Pre/PostToolUse) | ${report.hookLogs.filter((h) => h.toolName).length} | ${report.hookLogs.filter((h) => h.toolName).map((h) => h.toolName).join(", ") || "-"} |
+
+## result 이벤트
+
+${report.resultEvent ? `\`\`\`json\n${JSON.stringify(report.resultEvent, null, 2)}\n\`\`\`` : "_미수신_"}
+
+${report.error ? `## 에러\n\n\`\`\`\n${report.error}\n\`\`\`` : ""}
+
+## 다음 단계
+
+> ${report.nextStep}
+
+---
+_생성: ${report.timestamp}_
+`;
+}
+
 async function main() {
   console.log("=== P2-3: Agent Teams Hooks 감시 ===\n");
   const start = Date.now();
@@ -90,7 +157,6 @@ async function main() {
   let resultEvent: Record<string, unknown> | null = null;
   let error: string | null = null;
 
-  // Hook 콜백 생성 함수
   function createHookCallback(eventName: string) {
     return async (
       input: HookInput,
@@ -109,7 +175,6 @@ async function main() {
         rawInput,
       };
 
-      // PreToolUse / PostToolUse
       if ("tool_name" in input) {
         entry.toolName = input.tool_name;
         entry.toolInput = input.tool_input;
@@ -123,7 +188,6 @@ async function main() {
         console.log(`[${marker}] ${eventName} (${elapsed}ms) tool: ${input.tool_name}`);
       }
 
-      // TaskCompleted
       if ("task_id" in input) {
         entry.taskId = input.task_id;
         entry.taskSubject = input.task_subject;
@@ -133,7 +197,6 @@ async function main() {
         console.log(`[🎯 AT-HOOK] ${eventName} (${elapsed}ms) task: ${input.task_subject}`);
       }
 
-      // TeammateIdle
       if ("teammate_name" in input && !("task_id" in input)) {
         entry.teammateName = input.teammate_name;
         entry.teamName = input.team_name;
@@ -209,7 +272,6 @@ async function main() {
         break;
       }
 
-      // assistant 이벤트에서 tool_use 추적 (비교용)
       if (msg.type === "assistant") {
         for (const block of msg.message.content) {
           if (block.type === "tool_use") {
@@ -259,7 +321,6 @@ async function main() {
     teammateIdleFired: hookLogs.some((h) => h.hookEvent === "TeammateIdle"),
   };
 
-  // 핵심 기준: PreToolUse/PostToolUse에서 Agent Teams 도구 이벤트 1개 이상
   const pass = criteria.agentTeamsToolInHooks;
 
   // 4. Dump
@@ -284,6 +345,7 @@ async function main() {
   };
 
   writeFileSync("results/p2-3-hook-logs.json", JSON.stringify(report, null, 2));
+  writeFileSync("results/p2-3-report.md", generateMarkdown(report));
 
   // 5. 결론 출력
   console.log("\n" + "=".repeat(60));
@@ -300,7 +362,6 @@ async function main() {
   console.log(`TaskCompleted 발생: ${criteria.taskCompletedFired ? "✅" : "❌"}`);
   console.log(`TeammateIdle 발생: ${criteria.teammateIdleFired ? "✅" : "❌"}`);
 
-  // Stream vs Hook 비교
   console.log("\n[Stream tool_use vs Hook 비교]");
   console.log(`Stream에서 감지: ${toolCallsFromStream.length}개 [${toolCallsFromStream.map((t) => t.name).join(", ")}]`);
   console.log(`Hook에서 감지: ${hookLogs.filter((h) => h.toolName).length}개 [${hookLogs.filter((h) => h.toolName).map((h) => `${h.hookEvent}:${h.toolName}`).join(", ")}]`);
@@ -314,7 +375,7 @@ async function main() {
 
   if (error) console.log(`\n에러: ${error}`);
   console.log(`\n다음 단계: ${report.nextStep}`);
-  console.log(`결과 파일: results/p2-3-hook-logs.json`);
+  console.log(`결과: results/p2-3-hook-logs.json + results/p2-3-report.md`);
 }
 
 main();

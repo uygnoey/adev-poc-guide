@@ -13,9 +13,11 @@
  * 실패 시:
  *   - Promise.all 동시 수를 3개 이하로 제한.
  *
- * 산출물: results/p2-1-concurrent.json
+ * 산출물:
+ *   - results/p2-1-concurrent.json
+ *   - results/p2-1-report.md
  *
- * 실행: npx tsx p2-1-concurrent-query.ts
+ * 실행: bun run p2-1-concurrent-query.ts
  */
 
 import { query } from "@anthropic-ai/claude-agent-sdk";
@@ -58,6 +60,54 @@ interface P21Report {
     allWithin60Seconds: boolean;
   };
   nextStep: string;
+}
+
+function generateMarkdown(report: P21Report): string {
+  const c = report.criteria;
+
+  function phaseTable(label: string, results: QueryResult[]): string {
+    return `### ${label}
+
+| ID | 성공 | 소요(ms) | 이벤트 수 | 결과 |
+|----|------|---------|----------|------|
+${results.map((r) => `| ${r.id} | ${r.success ? "PASS" : "FAIL"} | ${r.durationMs} | ${r.eventCount} | ${(r.resultText ?? r.error ?? "-").substring(0, 40)} |`).join("\n")}
+`;
+  }
+
+  return `# P2-1: 동시 query() 안정성 — 결과서
+
+## 개요
+
+| 항목 | 값 |
+|------|-----|
+| 테스트 ID | P2-1 |
+| 실행 시각 | ${report.timestamp} |
+| 총 소요 시간 | ${report.totalDurationMs}ms |
+| **최종 결과** | **${report.result}** |
+
+## 성공 기준 체크
+
+| 기준 | 결과 |
+|------|------|
+| 3개 동시 query 전체 성공 | ${c.phase1AllSuccess ? "PASS" : "FAIL"} |
+| 5개 동시 query 전체 성공 | ${c.phase2AllSuccess ? "PASS" : "FAIL"} |
+| 전체 60초 이내 완료 | ${c.allWithin60Seconds ? "PASS" : "FAIL"} |
+
+## Phase 1: 3개 동시 (${report.phase1.durationMs}ms)
+
+${phaseTable("3개 동시 query", report.phase1.results)}
+
+## Phase 2: 5개 동시 (${report.phase2.durationMs}ms)
+
+${phaseTable("5개 동시 query", report.phase2.results)}
+
+## 다음 단계
+
+> ${report.nextStep}
+
+---
+_생성: ${report.timestamp}_
+`;
 }
 
 async function runSingleQuery(id: string, prompt: string): Promise<QueryResult> {
@@ -108,7 +158,7 @@ async function runSingleQuery(id: string, prompt: string): Promise<QueryResult> 
   return { id, prompt, success, resultText, durationMs, eventCount, eventTypes, error };
 }
 
-async function runConcurrent(label: string, count: number): Promise<{
+async function runConcurrent(label: string, count: number, idPrefix: string): Promise<{
   results: QueryResult[];
   allSuccess: boolean;
   durationMs: number;
@@ -117,8 +167,8 @@ async function runConcurrent(label: string, count: number): Promise<{
   const start = Date.now();
 
   const prompts = Array.from({ length: count }, (_, i) => ({
-    id: `coder-${i + 1}`,
-    prompt: `너는 coder-${i + 1}이다. "${i + 1} * ${i + 1}"의 결과를 숫자만 답해.`,
+    id: `${idPrefix}-${i + 1}`,
+    prompt: `너는 ${idPrefix}-${i + 1}이다. "${i + 1} * ${i + 1}"의 결과를 숫자만 답해.`,
   }));
 
   const results = await Promise.all(
@@ -141,10 +191,10 @@ async function main() {
   mkdirSync("results", { recursive: true });
 
   // 2. Execute Phase 1: 3개 동시
-  const phase1 = await runConcurrent("3개 동시 query", 3);
+  const phase1 = await runConcurrent("3개 동시 query", 3, "p1-coder");
 
   // 3. Execute Phase 2: 5개 동시
-  const phase2 = await runConcurrent("5개 동시 query", 5);
+  const phase2 = await runConcurrent("5개 동시 query", 5, "p2-coder");
 
   const totalDurationMs = Date.now() - start;
 
@@ -178,6 +228,7 @@ async function main() {
   };
 
   writeFileSync("results/p2-1-concurrent.json", JSON.stringify(report, null, 2));
+  writeFileSync("results/p2-1-report.md", generateMarkdown(report));
 
   // 6. 결론 출력
   console.log("\n" + "=".repeat(60));
@@ -190,16 +241,16 @@ async function main() {
 
   // 개별 결과 테이블
   console.log("\n[개별 결과]");
-  console.log("ID         | 성공 | 소요(ms) | 결과");
-  console.log("-".repeat(55));
+  console.log("ID            | 성공 | 소요(ms) | 결과");
+  console.log("-".repeat(60));
   for (const r of allResults) {
     console.log(
-      `${r.id.padEnd(10)} | ${r.success ? "✅" : "❌"}   | ${String(r.durationMs).padStart(7)} | ${(r.resultText ?? r.error ?? "-").substring(0, 30)}`
+      `${r.id.padEnd(13)} | ${r.success ? "✅" : "❌"}   | ${String(r.durationMs).padStart(7)} | ${(r.resultText ?? r.error ?? "-").substring(0, 30)}`
     );
   }
 
   console.log(`\n다음 단계: ${report.nextStep}`);
-  console.log(`결과 파일: results/p2-1-concurrent.json`);
+  console.log(`결과: results/p2-1-concurrent.json + results/p2-1-report.md`);
 }
 
 main();

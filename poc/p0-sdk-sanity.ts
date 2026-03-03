@@ -13,9 +13,11 @@
  * 실패 시:
  *   - Claude Code 설치/인증 문제. 나머지 PoC 진행 불가.
  *
- * 산출물: results/p0-events.json (모든 이벤트 raw dump)
+ * 산출물:
+ *   - results/p0-events.json (모든 이벤트 raw dump)
+ *   - results/p0-report.md  (사람이 읽을 수 있는 상세 결과서)
  *
- * 실행: npx tsx p0-sdk-sanity.ts
+ * 실행: bun run p0-sdk-sanity.ts
  */
 
 import { query } from "@anthropic-ai/claude-agent-sdk";
@@ -40,6 +42,52 @@ interface P0Report {
   rawEvents: unknown[];
   error: string | null;
   nextStep: string;
+}
+
+function generateMarkdown(report: P0Report): string {
+  const c = report.criteria;
+  return `# P0: SDK 기본 동작 확인 — 결과서
+
+## 개요
+
+| 항목 | 값 |
+|------|-----|
+| 테스트 ID | P0 |
+| 실행 시각 | ${report.timestamp} |
+| 소요 시간 | ${report.durationMs}ms |
+| **최종 결과** | **${report.result}** |
+
+## 성공 기준 체크
+
+| 기준 | 결과 | 상세 |
+|------|------|------|
+| assistant 텍스트 추출 가능 | ${c.assistantTextExtracted ? "PASS" : "FAIL"} | ${report.extractedText ? `"${report.extractedText}"` : "추출 실패"} |
+| result 이벤트 수신 | ${c.resultEventReceived ? "PASS" : "FAIL"} | ${report.resultEvent ? `subtype: ${report.resultEvent.subtype}` : "미수신"} |
+| 30초 이내 완료 | ${c.within30Seconds ? "PASS" : "FAIL"} | ${report.durationMs}ms |
+
+## 이벤트 흐름
+
+총 **${report.rawEvents.length}**개 이벤트 수신:
+
+| # | 타입 | 주요 내용 |
+|---|------|----------|
+${report.allEvents.map((e, i) => `| ${i + 1} | \`${e.type}\` | ${e.content ? JSON.stringify(e.content).substring(0, 80) : "-"} |`).join("\n")}
+
+## result 이벤트 상세
+
+${report.resultEvent ? `\`\`\`json
+${JSON.stringify(report.resultEvent, null, 2)}
+\`\`\`` : "_result 이벤트 미수신_"}
+
+${report.error ? `## 에러\n\n\`\`\`\n${report.error}\n\`\`\`` : ""}
+
+## 다음 단계
+
+> ${report.nextStep}
+
+---
+_생성: ${report.timestamp}_
+`;
 }
 
 async function main() {
@@ -75,22 +123,18 @@ async function main() {
     for await (const msg of q) {
       const elapsed = Date.now() - start;
 
-      // 타임아웃 체크
       if (elapsed > TIMEOUT_MS) {
         console.log(`[Timeout] ${TIMEOUT_MS}ms 초과. 스트림 중단.`);
         break;
       }
 
-      // Raw 이벤트 저장
       rawEvents.push(JSON.parse(JSON.stringify(msg)));
 
-      // 이벤트 요약
       const summary: { type: string; keys: string[]; content?: unknown } = {
         type: (msg as Record<string, unknown>).type as string,
         keys: Object.keys(msg as Record<string, unknown>),
       };
 
-      // assistant 이벤트 처리
       if (msg.type === "assistant") {
         const textBlocks = msg.message.content.filter(
           (b: { type: string }) => b.type === "text"
@@ -112,10 +156,7 @@ async function main() {
         } else {
           console.log(`[Event] assistant (${elapsed}ms) - no text blocks`);
         }
-      }
-
-      // result 이벤트 처리
-      else if (msg.type === "result") {
+      } else if (msg.type === "result") {
         const resultText = msg.subtype === "success" ? msg.result : msg.errors.join("; ");
         resultEvent = {
           subtype: msg.subtype,
@@ -128,10 +169,7 @@ async function main() {
         summary.content = resultEvent;
         console.log(`[Event] result (${elapsed}ms) - subtype: ${msg.subtype}, result: "${resultText}"`);
         break;
-      }
-
-      // 기타 이벤트
-      else {
+      } else {
         console.log(`[Event] ${msg.type} (${elapsed}ms)`);
       }
 
@@ -172,6 +210,7 @@ async function main() {
   };
 
   writeFileSync("results/p0-events.json", JSON.stringify(report, null, 2));
+  writeFileSync("results/p0-report.md", generateMarkdown(report));
 
   // 5. 결론 출력
   console.log("\n" + "=".repeat(60));
@@ -185,7 +224,7 @@ async function main() {
   console.log(`이벤트 타입: ${eventSummary.map((e) => e.type).join(", ")}`);
   if (error) console.log(`에러: ${error}`);
   console.log(`\n다음 단계: ${report.nextStep}`);
-  console.log(`결과 파일: results/p0-events.json`);
+  console.log(`결과: results/p0-events.json + results/p0-report.md`);
 }
 
 main();
