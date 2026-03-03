@@ -1,0 +1,22 @@
+{
+  "name": "adev-poc",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "adev PoC — Claude Agent SDK + Agent Teams 검증",
+  "scripts": {
+    "p0": "bun run p0-sdk-sanity.ts",
+    "p2-1": "bun run p2-1-concurrent-query.ts",
+    "p2-2": "bun run p2-2-agent-teams-basic.ts",
+    "p2-3": "bun run p2-3-agent-teams-hooks.ts",
+    "p3": "bun run p3-disk-ipc.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.3",
+    "typescript": "^5.2.0"
+  }
+}
