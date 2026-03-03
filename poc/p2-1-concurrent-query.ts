@@ -127,6 +127,7 @@ async function runSingleQuery(id: string, prompt: string): Promise<QueryResult> 
         maxTurns: 1,
         allowedTools: [],
         permissionMode: "bypassPermissions",
+        allowDangerouslySkipPermissions: true,
         settingSources: [],
       },
     });

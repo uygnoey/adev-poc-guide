@@ -313,8 +313,10 @@ async function main() {
           model: "sonnet",
           maxTurns: 250,
           permissionMode: "bypassPermissions",
+          allowDangerouslySkipPermissions: true,
           settingSources: [],
           env: {
+            ...process.env,
             CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS: "1",
           },
         },
@@ -372,11 +374,14 @@ async function main() {
           relativePath: relative(CLAUDE_DIR, filePath),
           type: isDir ? "directory" : "file",
         };
-        if (!isDir && (filePath.endsWith(".json") || filePath.endsWith(".jsonl"))) {
-          const { content, error: parseError } = tryParseJsonFile(filePath);
-          discovery.content = content;
-          discovery.parseError = parseError;
-          if (content) jsonFiles.push({ path: filePath, content });
+        if (!isDir) {
+          try { discovery.size = statSync(filePath).size; } catch { /* ignore */ }
+          if (filePath.endsWith(".json") || filePath.endsWith(".jsonl")) {
+            const { content, error: parseError } = tryParseJsonFile(filePath);
+            discovery.content = content;
+            discovery.parseError = parseError;
+            if (content) jsonFiles.push({ path: filePath, content });
+          }
         }
         discoveries.push(discovery);
         console.log(`[Final] 🆕 ${discovery.type}: ${discovery.relativePath}`);

@@ -179,8 +179,9 @@ async function main() {
         model: "sonnet",
         maxTurns: 250,
         permissionMode: "bypassPermissions",
+        allowDangerouslySkipPermissions: true,
         settingSources: [],
-        env: envConfig,
+        env: { ...process.env, ...envConfig },
       },
     });
 

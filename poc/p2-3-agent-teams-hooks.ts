@@ -231,8 +231,10 @@ async function main() {
         model: "sonnet",
         maxTurns: 250,
         permissionMode: "bypassPermissions",
+        allowDangerouslySkipPermissions: true,
         settingSources: [],
         env: {
+          ...process.env,
           CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS: "1",
         },
         hooks: {

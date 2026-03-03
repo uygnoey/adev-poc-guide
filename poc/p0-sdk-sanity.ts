@@ -116,6 +116,7 @@ async function main() {
         maxTurns: 1,
         allowedTools: [],
         permissionMode: "bypassPermissions",
+        allowDangerouslySkipPermissions: true,
         settingSources: [],
       },
     });
@@ -168,6 +169,7 @@ async function main() {
         };
         summary.content = resultEvent;
         console.log(`[Event] result (${elapsed}ms) - subtype: ${msg.subtype}, result: "${resultText}"`);
+        eventSummary.push(summary);
         break;
       } else {
         console.log(`[Event] ${msg.type} (${elapsed}ms)`);
