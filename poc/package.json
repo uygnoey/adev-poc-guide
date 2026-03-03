@@ -1,0 +1,15 @@
+{
+  "name": "adev-poc",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "adev PoC — Claude Agent SDK + Agent Teams 검증",
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.3",
+    "tsx": "^4.0.0",
+    "typescript": "^5.2.0"
+  }
+}
