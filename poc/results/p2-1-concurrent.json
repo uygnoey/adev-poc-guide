@@ -1,0 +1,147 @@
+{
+  "testId": "P2-1",
+  "testName": "동시 query() 안정성",
+  "timestamp": "2026-03-03T14:19:48.415Z",
+  "totalDurationMs": 23780,
+  "result": "PASS",
+  "phase1": {
+    "label": "3개 동시 query",
+    "results": [
+      {
+        "id": "p1-coder-1",
+        "prompt": "너는 p1-coder-1이다. \"1 * 1\"의 결과를 숫자만 답해.",
+        "success": true,
+        "resultText": "1",
+        "durationMs": 12376,
+        "eventCount": 4,
+        "eventTypes": [
+          "system",
+          "assistant",
+          "rate_limit_event",
+          "result"
+        ],
+        "error": null
+      },
+      {
+        "id": "p1-coder-2",
+        "prompt": "너는 p1-coder-2이다. \"2 * 2\"의 결과를 숫자만 답해.",
+        "success": true,
+        "resultText": "4",
+        "durationMs": 12815,
+        "eventCount": 4,
+        "eventTypes": [
+          "system",
+          "assistant",
+          "rate_limit_event",
+          "result"
+        ],
+        "error": null
+      },
+      {
+        "id": "p1-coder-3",
+        "prompt": "너는 p1-coder-3이다. \"3 * 3\"의 결과를 숫자만 답해.",
+        "success": true,
+        "resultText": "9",
+        "durationMs": 13538,
+        "eventCount": 4,
+        "eventTypes": [
+          "system",
+          "assistant",
+          "rate_limit_event",
+          "result"
+        ],
+        "error": null
+      }
+    ],
+    "allSuccess": true,
+    "durationMs": 13548
+  },
+  "phase2": {
+    "label": "5개 동시 query",
+    "results": [
+      {
+        "id": "p2-coder-1",
+        "prompt": "너는 p2-coder-1이다. \"1 * 1\"의 결과를 숫자만 답해.",
+        "success": true,
+        "resultText": "1",
+        "durationMs": 8570,
+        "eventCount": 4,
+        "eventTypes": [
+          "system",
+          "assistant",
+          "rate_limit_event",
+          "result"
+        ],
+        "error": null
+      },
+      {
+        "id": "p2-coder-2",
+        "prompt": "너는 p2-coder-2이다. \"2 * 2\"의 결과를 숫자만 답해.",
+        "success": true,
+        "resultText": "4",
+        "durationMs": 10229,
+        "eventCount": 4,
+        "eventTypes": [
+          "system",
+          "assistant",
+          "rate_limit_event",
+          "result"
+        ],
+        "error": null
+      },
+      {
+        "id": "p2-coder-3",
+        "prompt": "너는 p2-coder-3이다. \"3 * 3\"의 결과를 숫자만 답해.",
+        "success": true,
+        "resultText": "9",
+        "durationMs": 8143,
+        "eventCount": 4,
+        "eventTypes": [
+          "system",
+          "assistant",
+          "rate_limit_event",
+          "result"
+        ],
+        "error": null
+      },
+      {
+        "id": "p2-coder-4",
+        "prompt": "너는 p2-coder-4이다. \"4 * 4\"의 결과를 숫자만 답해.",
+        "success": true,
+        "resultText": "16",
+        "durationMs": 8401,
+        "eventCount": 4,
+        "eventTypes": [
+          "system",
+          "assistant",
+          "rate_limit_event",
+          "result"
+        ],
+        "error": null
+      },
+      {
+        "id": "p2-coder-5",
+        "prompt": "너는 p2-coder-5이다. \"5 * 5\"의 결과를 숫자만 답해.",
+        "success": true,
+        "resultText": "25",
+        "durationMs": 8547,
+        "eventCount": 4,
+        "eventTypes": [
+          "system",
+          "assistant",
+          "rate_limit_event",
+          "result"
+        ],
+        "error": null
+      }
+    ],
+    "allSuccess": true,
+    "durationMs": 10232
+  },
+  "criteria": {
+    "phase1AllSuccess": true,
+    "phase2AllSuccess": true,
+    "allWithin60Seconds": true
+  },
+  "nextStep": "P2-1 PASS → P2-2 (Agent Teams 기본 동작) 진행"
+}

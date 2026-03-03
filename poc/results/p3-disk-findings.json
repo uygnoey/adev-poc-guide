@@ -1,0 +1,233 @@
+{
+  "testId": "P3",
+  "testName": "디스크 기반 IPC 확인",
+  "timestamp": "2026-03-03T15:18:47.317Z",
+  "durationMs": 155956,
+  "result": "PASS",
+  "criteria": {
+    "teamDirectoryFound": true,
+    "anyFileFound": true,
+    "jsonParseable": true,
+    "inboxStructureFound": true
+  },
+  "watchDirs": [
+    "C:\\Users\\yeongyu\\.claude\\teams",
+    "C:\\Users\\yeongyu\\.claude\\tasks"
+  ],
+  "claudeDirExists": true,
+  "claudeDirContents": [
+    ".credentials.json",
+    "backups",
+    "cache",
+    "debug",
+    "downloads",
+    "file-history",
+    "history.jsonl",
+    "ide",
+    "mcp-needs-auth-cache.json",
+    "plans",
+    "plugins",
+    "projects",
+    "settings.json",
+    "shell-snapshots",
+    "stats-cache.json",
+    "tasks",
+    "teams",
+    "telemetry",
+    "todos"
+  ],
+  "discoveries": [
+    {
+      "timestamp": "2026-03-03T15:16:49.388Z",
+      "elapsedMs": 38027,
+      "path": "C:\\Users\\yeongyu\\.claude\\teams\\poc-ipc-team",
+      "relativePath": "teams\\poc-ipc-team",
+      "type": "directory"
+    },
+    {
+      "timestamp": "2026-03-03T15:16:49.388Z",
+      "elapsedMs": 38027,
+      "path": "C:\\Users\\yeongyu\\.claude\\teams\\poc-ipc-team\\config.json",
+      "relativePath": "teams\\poc-ipc-team\\config.json",
+      "type": "file",
+      "size": 512,
+      "content": {
+        "name": "poc-ipc-team",
+        "description": "IPC 테스트용 POC 팀",
+        "createdAt": 1772551008998,
+        "leadAgentId": "team-lead@poc-ipc-team",
+        "leadSessionId": "c6c69d02-4fcc-4b21-b23d-5d8cc37b646d",
+        "members": [
+          {
+            "agentId": "team-lead@poc-ipc-team",
+            "name": "team-lead",
+            "agentType": "team-lead",
+            "model": "claude-opus-4-6",
+            "joinedAt": 1772551008998,
+            "tmuxPaneId": "",
+            "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+            "subscriptions": []
+          }
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-03-03T15:16:49.389Z",
+      "elapsedMs": 38027,
+      "path": "C:\\Users\\yeongyu\\.claude\\tasks\\poc-ipc-team",
+      "relativePath": "tasks\\poc-ipc-team",
+      "type": "directory"
+    },
+    {
+      "timestamp": "2026-03-03T15:16:49.389Z",
+      "elapsedMs": 38027,
+      "path": "C:\\Users\\yeongyu\\.claude\\tasks\\poc-ipc-team\\.lock",
+      "relativePath": "tasks\\poc-ipc-team\\.lock",
+      "type": "file",
+      "size": 0
+    },
+    {
+      "timestamp": "2026-03-03T15:16:55.034Z",
+      "elapsedMs": 43671,
+      "path": "C:\\Users\\yeongyu\\.claude\\tasks\\poc-ipc-team\\1.json",
+      "relativePath": "tasks\\poc-ipc-team\\1.json",
+      "type": "file",
+      "size": 184,
+      "content": {
+        "id": "1",
+        "subject": "observer",
+        "description": "Hello라고 답해",
+        "status": "in_progress",
+        "blocks": [],
+        "blockedBy": [],
+        "metadata": {
+          "_internal": true
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-03T15:16:58.614Z",
+      "elapsedMs": 47253,
+      "path": "C:\\Users\\yeongyu\\.claude\\teams\\poc-ipc-team\\inboxes",
+      "relativePath": "teams\\poc-ipc-team\\inboxes",
+      "type": "directory"
+    },
+    {
+      "timestamp": "2026-03-03T15:16:58.615Z",
+      "elapsedMs": 47253,
+      "path": "C:\\Users\\yeongyu\\.claude\\teams\\poc-ipc-team\\inboxes\\observer.json",
+      "relativePath": "teams\\poc-ipc-team\\inboxes\\observer.json",
+      "type": "file",
+      "size": 167,
+      "content": [
+        {
+          "from": "team-lead",
+          "text": "상태 보고",
+          "summary": "상태 보고 요청",
+          "timestamp": "2026-03-03T15:16:58.299Z",
+          "read": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-03-03T15:16:59.127Z",
+      "elapsedMs": 47764,
+      "path": "C:\\Users\\yeongyu\\.claude\\teams\\poc-ipc-team\\inboxes\\team-lead.json",
+      "relativePath": "teams\\poc-ipc-team\\inboxes\\team-lead.json",
+      "type": "file",
+      "size": 171,
+      "content": [
+        {
+          "from": "observer",
+          "text": "Hello",
+          "summary": "Hello 응답",
+          "timestamp": "2026-03-03T15:16:58.806Z",
+          "color": "blue",
+          "read": false
+        }
+      ]
+    }
+  ],
+  "jsonFiles": [
+    {
+      "path": "C:\\Users\\yeongyu\\.claude\\teams\\poc-ipc-team\\config.json",
+      "content": {
+        "name": "poc-ipc-team",
+        "description": "IPC 테스트용 POC 팀",
+        "createdAt": 1772551008998,
+        "leadAgentId": "team-lead@poc-ipc-team",
+        "leadSessionId": "c6c69d02-4fcc-4b21-b23d-5d8cc37b646d",
+        "members": [
+          {
+            "agentId": "team-lead@poc-ipc-team",
+            "name": "team-lead",
+            "agentType": "team-lead",
+            "model": "claude-opus-4-6",
+            "joinedAt": 1772551008998,
+            "tmuxPaneId": "",
+            "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+            "subscriptions": []
+          }
+        ]
+      }
+    },
+    {
+      "path": "C:\\Users\\yeongyu\\.claude\\tasks\\poc-ipc-team\\1.json",
+      "content": {
+        "id": "1",
+        "subject": "observer",
+        "description": "Hello라고 답해",
+        "status": "in_progress",
+        "blocks": [],
+        "blockedBy": [],
+        "metadata": {
+          "_internal": true
+        }
+      }
+    },
+    {
+      "path": "C:\\Users\\yeongyu\\.claude\\teams\\poc-ipc-team\\inboxes\\observer.json",
+      "content": [
+        {
+          "from": "team-lead",
+          "text": "상태 보고",
+          "summary": "상태 보고 요청",
+          "timestamp": "2026-03-03T15:16:58.299Z",
+          "read": false
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\yeongyu\\.claude\\teams\\poc-ipc-team\\inboxes\\team-lead.json",
+      "content": [
+        {
+          "from": "observer",
+          "text": "Hello",
+          "summary": "Hello 응답",
+          "timestamp": "2026-03-03T15:16:58.806Z",
+          "color": "blue",
+          "read": false
+        }
+      ]
+    }
+  ],
+  "fallbackSearchResults": [
+    "C:\\Users\\yeongyu\\.claude\\debug\\c6c69d02-4fcc-4b21-b23d-5d8cc37b646d.txt",
+    "C:\\Users\\yeongyu\\.claude\\telemetry\\1p_failed_events.c6c69d02-4fcc-4b21-b23d-5d8cc37b646d.6940e286-1b9d-423f-9759-587294994d2a.json",
+    "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\c6c69d02-4fcc-4b21-b23d-5d8cc37b646d.jsonl",
+    "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\c6c69d02-4fcc-4b21-b23d-5d8cc37b646d",
+    "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\c6c69d02-4fcc-4b21-b23d-5d8cc37b646d\\subagents",
+    "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\c6c69d02-4fcc-4b21-b23d-5d8cc37b646d\\subagents\\agent-a00e571892439674e.jsonl",
+    "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\c6c69d02-4fcc-4b21-b23d-5d8cc37b646d\\subagents\\agent-a39bb0827aff25b1a.jsonl",
+    "C:\\Users\\yeongyu\\.claude\\shell-snapshots\\snapshot-bash-1772551022158-6dd2j7.sh",
+    "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\c6c69d02-4fcc-4b21-b23d-5d8cc37b646d\\subagents\\agent-a4a7f82cf26cd2ab0.jsonl"
+  ],
+  "queryResult": {
+    "subtype": "success",
+    "result": "✅ `poc-ipc-team` 팀 삭제 완료!\n\n---\n\n## 전체 수행 결과 요약\n\n| 단계 | 작업 | 결과 |\n|------|------|------|\n| 1️⃣ | **팀 생성** (`TeamCreate`) | `poc-ipc-team` 팀 생성 ✅ |\n| 2️⃣ | **teammate 추가** (`Agent`) | `observer` 추가, \"He",
+    "total_cost_usd": 1.08188375,
+    "num_turns": 19
+  },
+  "error": null,
+  "nextStep": "P3 PASS → 디스크 폴링 감시 가능. P2-3 FAIL 시 대안으로 사용"
+}

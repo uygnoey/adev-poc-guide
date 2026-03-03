@@ -1,0 +1,1678 @@
+{
+  "testId": "P2-3",
+  "testName": "Agent Teams Hooks 감시",
+  "timestamp": "2026-03-03T14:24:40.268Z",
+  "durationMs": 76202,
+  "result": "PASS",
+  "criteria": {
+    "preToolUseHookFired": true,
+    "postToolUseHookFired": true,
+    "agentTeamsToolInHooks": true,
+    "taskCompletedFired": false,
+    "teammateIdleFired": true
+  },
+  "hookLogs": [
+    {
+      "timestamp": "2026-03-03T14:23:38.933Z",
+      "elapsedMs": 14867,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_011EH2i8aZpCFVkX9DMnh2uH",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "TeamCreate",
+        "tool_input": {
+          "team_name": "poc-hook-team",
+          "description": "POC Hook Team - 테스트용 팀"
+        },
+        "tool_use_id": "toolu_011EH2i8aZpCFVkX9DMnh2uH"
+      },
+      "toolName": "TeamCreate",
+      "toolInput": {
+        "team_name": "poc-hook-team",
+        "description": "POC Hook Team - 테스트용 팀"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:38.945Z",
+      "elapsedMs": 14879,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_011EH2i8aZpCFVkX9DMnh2uH",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "TeamCreate",
+        "tool_input": {
+          "team_name": "poc-hook-team",
+          "description": "POC Hook Team - 테스트용 팀"
+        },
+        "tool_response": {
+          "team_name": "poc-hook-team",
+          "team_file_path": "C:\\Users\\yeongyu\\.claude\\teams\\poc-hook-team\\config.json",
+          "lead_agent_id": "team-lead@poc-hook-team"
+        },
+        "tool_use_id": "toolu_011EH2i8aZpCFVkX9DMnh2uH"
+      },
+      "toolName": "TeamCreate",
+      "toolInput": {
+        "team_name": "poc-hook-team",
+        "description": "POC Hook Team - 테스트용 팀"
+      },
+      "toolResponse": {
+        "team_name": "poc-hook-team",
+        "team_file_path": "C:\\Users\\yeongyu\\.claude\\teams\\poc-hook-team\\config.json",
+        "lead_agent_id": "team-lead@poc-hook-team"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:43.008Z",
+      "elapsedMs": 18942,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_01VqEqWXwUQYiCbkV2TEb8WZ",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "Agent",
+        "tool_input": {
+          "description": "worker teammate 생성",
+          "prompt": "안녕이라고 답해",
+          "subagent_type": "general-purpose",
+          "name": "worker",
+          "team_name": "poc-hook-team"
+        },
+        "tool_use_id": "toolu_01VqEqWXwUQYiCbkV2TEb8WZ"
+      },
+      "toolName": "Agent",
+      "toolInput": {
+        "description": "worker teammate 생성",
+        "prompt": "안녕이라고 답해",
+        "subagent_type": "general-purpose",
+        "name": "worker",
+        "team_name": "poc-hook-team"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:43.023Z",
+      "elapsedMs": 18957,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_01VqEqWXwUQYiCbkV2TEb8WZ",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "Agent",
+        "tool_input": {
+          "description": "worker teammate 생성",
+          "prompt": "안녕이라고 답해",
+          "subagent_type": "general-purpose",
+          "name": "worker",
+          "team_name": "poc-hook-team"
+        },
+        "tool_response": {
+          "status": "teammate_spawned",
+          "prompt": "안녕이라고 답해",
+          "teammate_id": "worker@poc-hook-team",
+          "agent_id": "worker@poc-hook-team",
+          "agent_type": "general-purpose",
+          "model": "claude-opus-4-6",
+          "name": "worker",
+          "color": "blue",
+          "tmux_session_name": "in-process",
+          "tmux_window_name": "in-process",
+          "tmux_pane_id": "in-process",
+          "team_name": "poc-hook-team",
+          "is_splitpane": false,
+          "plan_mode_required": false
+        },
+        "tool_use_id": "toolu_01VqEqWXwUQYiCbkV2TEb8WZ"
+      },
+      "toolName": "Agent",
+      "toolInput": {
+        "description": "worker teammate 생성",
+        "prompt": "안녕이라고 답해",
+        "subagent_type": "general-purpose",
+        "name": "worker",
+        "team_name": "poc-hook-team"
+      },
+      "toolResponse": {
+        "status": "teammate_spawned",
+        "prompt": "안녕이라고 답해",
+        "teammate_id": "worker@poc-hook-team",
+        "agent_id": "worker@poc-hook-team",
+        "agent_type": "general-purpose",
+        "model": "claude-opus-4-6",
+        "name": "worker",
+        "color": "blue",
+        "tmux_session_name": "in-process",
+        "tmux_window_name": "in-process",
+        "tmux_pane_id": "in-process",
+        "team_name": "poc-hook-team",
+        "is_splitpane": false,
+        "plan_mode_required": false
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:46.887Z",
+      "elapsedMs": 22821,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_01V1Tj8X32B9JTqhaTKBbjwW",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "message",
+          "recipient": "worker",
+          "content": "작업 완료 보고해",
+          "summary": "작업 완료 보고 요청"
+        },
+        "tool_use_id": "toolu_01V1Tj8X32B9JTqhaTKBbjwW"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "message",
+        "recipient": "worker",
+        "content": "작업 완료 보고해",
+        "summary": "작업 완료 보고 요청"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:46.891Z",
+      "elapsedMs": 22825,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_01V1Tj8X32B9JTqhaTKBbjwW",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "message",
+          "recipient": "worker",
+          "content": "작업 완료 보고해",
+          "summary": "작업 완료 보고 요청"
+        },
+        "tool_response": {
+          "success": true,
+          "message": "Message sent to worker's inbox",
+          "routing": {
+            "sender": "team-lead",
+            "target": "@worker",
+            "targetColor": "blue",
+            "summary": "작업 완료 보고 요청",
+            "content": "작업 완료 보고해"
+          }
+        },
+        "tool_use_id": "toolu_01V1Tj8X32B9JTqhaTKBbjwW"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "message",
+        "recipient": "worker",
+        "content": "작업 완료 보고해",
+        "summary": "작업 완료 보고 요청"
+      },
+      "toolResponse": {
+        "success": true,
+        "message": "Message sent to worker's inbox",
+        "routing": {
+          "sender": "team-lead",
+          "target": "@worker",
+          "targetColor": "blue",
+          "summary": "작업 완료 보고 요청",
+          "content": "작업 완료 보고해"
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:47.528Z",
+      "elapsedMs": 23462,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_015kkmFyUmXXQsrpZ4xdsq6k",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "message",
+          "recipient": "team-lead",
+          "content": "안녕!",
+          "summary": "안녕 인사 전달"
+        },
+        "tool_use_id": "toolu_015kkmFyUmXXQsrpZ4xdsq6k"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "message",
+        "recipient": "team-lead",
+        "content": "안녕!",
+        "summary": "안녕 인사 전달"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:47.532Z",
+      "elapsedMs": 23466,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_015kkmFyUmXXQsrpZ4xdsq6k",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "message",
+          "recipient": "team-lead",
+          "content": "안녕!",
+          "summary": "안녕 인사 전달"
+        },
+        "tool_response": {
+          "success": true,
+          "message": "Message sent to team-lead's inbox",
+          "routing": {
+            "sender": "worker",
+            "senderColor": "blue",
+            "target": "@team-lead",
+            "targetColor": "red",
+            "summary": "안녕 인사 전달",
+            "content": "안녕!"
+          }
+        },
+        "tool_use_id": "toolu_015kkmFyUmXXQsrpZ4xdsq6k"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "message",
+        "recipient": "team-lead",
+        "content": "안녕!",
+        "summary": "안녕 인사 전달"
+      },
+      "toolResponse": {
+        "success": true,
+        "message": "Message sent to team-lead's inbox",
+        "routing": {
+          "sender": "worker",
+          "senderColor": "blue",
+          "target": "@team-lead",
+          "targetColor": "red",
+          "summary": "안녕 인사 전달",
+          "content": "안녕!"
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:50.144Z",
+      "elapsedMs": 26077,
+      "hookEvent": "TeammateIdle",
+      "toolUseId": "7ed91f10-3949-43a7-a916-ac31e6beb293",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "TeammateIdle",
+        "teammate_name": "worker",
+        "team_name": "poc-hook-team"
+      },
+      "teammateName": "worker",
+      "teamName": "poc-hook-team"
+    },
+    {
+      "timestamp": "2026-03-03T14:23:52.326Z",
+      "elapsedMs": 28260,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_01E6Ld2pdhFAfbB3icpEmkuA",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "shutdown_request",
+          "recipient": "worker",
+          "content": "모든 작업이 완료되었습니다. 종료해 주세요."
+        },
+        "tool_use_id": "toolu_01E6Ld2pdhFAfbB3icpEmkuA"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "shutdown_request",
+        "recipient": "worker",
+        "content": "모든 작업이 완료되었습니다. 종료해 주세요."
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:52.333Z",
+      "elapsedMs": 28267,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_01E6Ld2pdhFAfbB3icpEmkuA",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "shutdown_request",
+          "recipient": "worker",
+          "content": "모든 작업이 완료되었습니다. 종료해 주세요."
+        },
+        "tool_response": {
+          "success": true,
+          "message": "Shutdown request sent to worker. Request ID: shutdown-1772547832330@worker",
+          "request_id": "shutdown-1772547832330@worker",
+          "target": "worker"
+        },
+        "tool_use_id": "toolu_01E6Ld2pdhFAfbB3icpEmkuA"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "shutdown_request",
+        "recipient": "worker",
+        "content": "모든 작업이 완료되었습니다. 종료해 주세요."
+      },
+      "toolResponse": {
+        "success": true,
+        "message": "Shutdown request sent to worker. Request ID: shutdown-1772547832330@worker",
+        "request_id": "shutdown-1772547832330@worker",
+        "target": "worker"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:53.893Z",
+      "elapsedMs": 29827,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_01MN3Zc18AdQgoumCGVQ5uZ9",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_use_id": "toolu_01MN3Zc18AdQgoumCGVQ5uZ9"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {}
+    },
+    {
+      "timestamp": "2026-03-03T14:23:53.895Z",
+      "elapsedMs": 29829,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_01MN3Zc18AdQgoumCGVQ5uZ9",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_response": {
+          "success": false,
+          "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+          "team_name": "poc-hook-team"
+        },
+        "tool_use_id": "toolu_01MN3Zc18AdQgoumCGVQ5uZ9"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {},
+      "toolResponse": {
+        "success": false,
+        "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+        "team_name": "poc-hook-team"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:54.076Z",
+      "elapsedMs": 30010,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_01MUKd9t241GVJRBMBvrjqX3",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "message",
+          "recipient": "team-lead",
+          "content": "작업 완료 보고드립니다. 현재 할당된 작업을 모두 마쳤습니다. 추가로 진행할 작업이 있으면 말씀해 주세요.",
+          "summary": "작업 완료 보고"
+        },
+        "tool_use_id": "toolu_01MUKd9t241GVJRBMBvrjqX3"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "message",
+        "recipient": "team-lead",
+        "content": "작업 완료 보고드립니다. 현재 할당된 작업을 모두 마쳤습니다. 추가로 진행할 작업이 있으면 말씀해 주세요.",
+        "summary": "작업 완료 보고"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:54.080Z",
+      "elapsedMs": 30014,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_01MUKd9t241GVJRBMBvrjqX3",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "message",
+          "recipient": "team-lead",
+          "content": "작업 완료 보고드립니다. 현재 할당된 작업을 모두 마쳤습니다. 추가로 진행할 작업이 있으면 말씀해 주세요.",
+          "summary": "작업 완료 보고"
+        },
+        "tool_response": {
+          "success": true,
+          "message": "Message sent to team-lead's inbox",
+          "routing": {
+            "sender": "worker",
+            "senderColor": "blue",
+            "target": "@team-lead",
+            "targetColor": "red",
+            "summary": "작업 완료 보고",
+            "content": "작업 완료 보고드립니다. 현재 할당된 작업을 모두 마쳤습니다. 추가로 진행할 작업이 있으면 말씀해 주세요."
+          }
+        },
+        "tool_use_id": "toolu_01MUKd9t241GVJRBMBvrjqX3"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "message",
+        "recipient": "team-lead",
+        "content": "작업 완료 보고드립니다. 현재 할당된 작업을 모두 마쳤습니다. 추가로 진행할 작업이 있으면 말씀해 주세요.",
+        "summary": "작업 완료 보고"
+      },
+      "toolResponse": {
+        "success": true,
+        "message": "Message sent to team-lead's inbox",
+        "routing": {
+          "sender": "worker",
+          "senderColor": "blue",
+          "target": "@team-lead",
+          "targetColor": "red",
+          "summary": "작업 완료 보고",
+          "content": "작업 완료 보고드립니다. 현재 할당된 작업을 모두 마쳤습니다. 추가로 진행할 작업이 있으면 말씀해 주세요."
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:56.377Z",
+      "elapsedMs": 32311,
+      "hookEvent": "TeammateIdle",
+      "toolUseId": "7878005b-2841-45bd-95fb-6180c1184515",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "TeammateIdle",
+        "teammate_name": "worker",
+        "team_name": "poc-hook-team"
+      },
+      "teammateName": "worker",
+      "teamName": "poc-hook-team"
+    },
+    {
+      "timestamp": "2026-03-03T14:23:59.436Z",
+      "elapsedMs": 35370,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_01WiuQUvRVdjWjB4sX1mskhm",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "shutdown_response",
+          "request_id": "shutdown-1772547832330@worker",
+          "approve": true
+        },
+        "tool_use_id": "toolu_01WiuQUvRVdjWjB4sX1mskhm"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "shutdown_response",
+        "request_id": "shutdown-1772547832330@worker",
+        "approve": true
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:59.440Z",
+      "elapsedMs": 35374,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_01WiuQUvRVdjWjB4sX1mskhm",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "shutdown_response",
+          "request_id": "shutdown-1772547832330@worker",
+          "approve": true
+        },
+        "tool_response": {
+          "success": true,
+          "message": "Shutdown approved. Sent confirmation to team-lead. Agent worker is now exiting.",
+          "request_id": "shutdown-1772547832330@worker"
+        },
+        "tool_use_id": "toolu_01WiuQUvRVdjWjB4sX1mskhm"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "shutdown_response",
+        "request_id": "shutdown-1772547832330@worker",
+        "approve": true
+      },
+      "toolResponse": {
+        "success": true,
+        "message": "Shutdown approved. Sent confirmation to team-lead. Agent worker is now exiting.",
+        "request_id": "shutdown-1772547832330@worker"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:24:01.876Z",
+      "elapsedMs": 37810,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_019qWi9rqQiciueKr8rjB9AF",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_use_id": "toolu_019qWi9rqQiciueKr8rjB9AF"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {}
+    },
+    {
+      "timestamp": "2026-03-03T14:24:01.877Z",
+      "elapsedMs": 37811,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_019qWi9rqQiciueKr8rjB9AF",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_response": {
+          "success": false,
+          "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+          "team_name": "poc-hook-team"
+        },
+        "tool_use_id": "toolu_019qWi9rqQiciueKr8rjB9AF"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {},
+      "toolResponse": {
+        "success": false,
+        "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+        "team_name": "poc-hook-team"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:24:08.631Z",
+      "elapsedMs": 44565,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_01M2yb4xoLWpaaK3xN9VCPgS",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_use_id": "toolu_01M2yb4xoLWpaaK3xN9VCPgS"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {}
+    },
+    {
+      "timestamp": "2026-03-03T14:24:08.632Z",
+      "elapsedMs": 44566,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_01M2yb4xoLWpaaK3xN9VCPgS",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_response": {
+          "success": false,
+          "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+          "team_name": "poc-hook-team"
+        },
+        "tool_use_id": "toolu_01M2yb4xoLWpaaK3xN9VCPgS"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {},
+      "toolResponse": {
+        "success": false,
+        "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+        "team_name": "poc-hook-team"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:24:18.900Z",
+      "elapsedMs": 54834,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_01TmA2tgYeFSTKswoHtr9Xtq",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_use_id": "toolu_01TmA2tgYeFSTKswoHtr9Xtq"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {}
+    },
+    {
+      "timestamp": "2026-03-03T14:24:18.902Z",
+      "elapsedMs": 54836,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_01TmA2tgYeFSTKswoHtr9Xtq",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_response": {
+          "success": false,
+          "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+          "team_name": "poc-hook-team"
+        },
+        "tool_use_id": "toolu_01TmA2tgYeFSTKswoHtr9Xtq"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {},
+      "toolResponse": {
+        "success": false,
+        "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+        "team_name": "poc-hook-team"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:24:27.898Z",
+      "elapsedMs": 63832,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_019ubsvpuEH3tLi2A1qxAf7o",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_use_id": "toolu_019ubsvpuEH3tLi2A1qxAf7o"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {}
+    },
+    {
+      "timestamp": "2026-03-03T14:24:27.899Z",
+      "elapsedMs": 63833,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_019ubsvpuEH3tLi2A1qxAf7o",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_response": {
+          "success": false,
+          "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+          "team_name": "poc-hook-team"
+        },
+        "tool_use_id": "toolu_019ubsvpuEH3tLi2A1qxAf7o"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {},
+      "toolResponse": {
+        "success": false,
+        "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+        "team_name": "poc-hook-team"
+      }
+    }
+  ],
+  "agentTeamsHookLogs": [
+    {
+      "timestamp": "2026-03-03T14:23:38.933Z",
+      "elapsedMs": 14867,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_011EH2i8aZpCFVkX9DMnh2uH",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "TeamCreate",
+        "tool_input": {
+          "team_name": "poc-hook-team",
+          "description": "POC Hook Team - 테스트용 팀"
+        },
+        "tool_use_id": "toolu_011EH2i8aZpCFVkX9DMnh2uH"
+      },
+      "toolName": "TeamCreate",
+      "toolInput": {
+        "team_name": "poc-hook-team",
+        "description": "POC Hook Team - 테스트용 팀"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:38.945Z",
+      "elapsedMs": 14879,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_011EH2i8aZpCFVkX9DMnh2uH",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "TeamCreate",
+        "tool_input": {
+          "team_name": "poc-hook-team",
+          "description": "POC Hook Team - 테스트용 팀"
+        },
+        "tool_response": {
+          "team_name": "poc-hook-team",
+          "team_file_path": "C:\\Users\\yeongyu\\.claude\\teams\\poc-hook-team\\config.json",
+          "lead_agent_id": "team-lead@poc-hook-team"
+        },
+        "tool_use_id": "toolu_011EH2i8aZpCFVkX9DMnh2uH"
+      },
+      "toolName": "TeamCreate",
+      "toolInput": {
+        "team_name": "poc-hook-team",
+        "description": "POC Hook Team - 테스트용 팀"
+      },
+      "toolResponse": {
+        "team_name": "poc-hook-team",
+        "team_file_path": "C:\\Users\\yeongyu\\.claude\\teams\\poc-hook-team\\config.json",
+        "lead_agent_id": "team-lead@poc-hook-team"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:43.008Z",
+      "elapsedMs": 18942,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_01VqEqWXwUQYiCbkV2TEb8WZ",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "Agent",
+        "tool_input": {
+          "description": "worker teammate 생성",
+          "prompt": "안녕이라고 답해",
+          "subagent_type": "general-purpose",
+          "name": "worker",
+          "team_name": "poc-hook-team"
+        },
+        "tool_use_id": "toolu_01VqEqWXwUQYiCbkV2TEb8WZ"
+      },
+      "toolName": "Agent",
+      "toolInput": {
+        "description": "worker teammate 생성",
+        "prompt": "안녕이라고 답해",
+        "subagent_type": "general-purpose",
+        "name": "worker",
+        "team_name": "poc-hook-team"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:43.023Z",
+      "elapsedMs": 18957,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_01VqEqWXwUQYiCbkV2TEb8WZ",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "Agent",
+        "tool_input": {
+          "description": "worker teammate 생성",
+          "prompt": "안녕이라고 답해",
+          "subagent_type": "general-purpose",
+          "name": "worker",
+          "team_name": "poc-hook-team"
+        },
+        "tool_response": {
+          "status": "teammate_spawned",
+          "prompt": "안녕이라고 답해",
+          "teammate_id": "worker@poc-hook-team",
+          "agent_id": "worker@poc-hook-team",
+          "agent_type": "general-purpose",
+          "model": "claude-opus-4-6",
+          "name": "worker",
+          "color": "blue",
+          "tmux_session_name": "in-process",
+          "tmux_window_name": "in-process",
+          "tmux_pane_id": "in-process",
+          "team_name": "poc-hook-team",
+          "is_splitpane": false,
+          "plan_mode_required": false
+        },
+        "tool_use_id": "toolu_01VqEqWXwUQYiCbkV2TEb8WZ"
+      },
+      "toolName": "Agent",
+      "toolInput": {
+        "description": "worker teammate 생성",
+        "prompt": "안녕이라고 답해",
+        "subagent_type": "general-purpose",
+        "name": "worker",
+        "team_name": "poc-hook-team"
+      },
+      "toolResponse": {
+        "status": "teammate_spawned",
+        "prompt": "안녕이라고 답해",
+        "teammate_id": "worker@poc-hook-team",
+        "agent_id": "worker@poc-hook-team",
+        "agent_type": "general-purpose",
+        "model": "claude-opus-4-6",
+        "name": "worker",
+        "color": "blue",
+        "tmux_session_name": "in-process",
+        "tmux_window_name": "in-process",
+        "tmux_pane_id": "in-process",
+        "team_name": "poc-hook-team",
+        "is_splitpane": false,
+        "plan_mode_required": false
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:46.887Z",
+      "elapsedMs": 22821,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_01V1Tj8X32B9JTqhaTKBbjwW",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "message",
+          "recipient": "worker",
+          "content": "작업 완료 보고해",
+          "summary": "작업 완료 보고 요청"
+        },
+        "tool_use_id": "toolu_01V1Tj8X32B9JTqhaTKBbjwW"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "message",
+        "recipient": "worker",
+        "content": "작업 완료 보고해",
+        "summary": "작업 완료 보고 요청"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:46.891Z",
+      "elapsedMs": 22825,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_01V1Tj8X32B9JTqhaTKBbjwW",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "message",
+          "recipient": "worker",
+          "content": "작업 완료 보고해",
+          "summary": "작업 완료 보고 요청"
+        },
+        "tool_response": {
+          "success": true,
+          "message": "Message sent to worker's inbox",
+          "routing": {
+            "sender": "team-lead",
+            "target": "@worker",
+            "targetColor": "blue",
+            "summary": "작업 완료 보고 요청",
+            "content": "작업 완료 보고해"
+          }
+        },
+        "tool_use_id": "toolu_01V1Tj8X32B9JTqhaTKBbjwW"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "message",
+        "recipient": "worker",
+        "content": "작업 완료 보고해",
+        "summary": "작업 완료 보고 요청"
+      },
+      "toolResponse": {
+        "success": true,
+        "message": "Message sent to worker's inbox",
+        "routing": {
+          "sender": "team-lead",
+          "target": "@worker",
+          "targetColor": "blue",
+          "summary": "작업 완료 보고 요청",
+          "content": "작업 완료 보고해"
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:47.528Z",
+      "elapsedMs": 23462,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_015kkmFyUmXXQsrpZ4xdsq6k",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "message",
+          "recipient": "team-lead",
+          "content": "안녕!",
+          "summary": "안녕 인사 전달"
+        },
+        "tool_use_id": "toolu_015kkmFyUmXXQsrpZ4xdsq6k"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "message",
+        "recipient": "team-lead",
+        "content": "안녕!",
+        "summary": "안녕 인사 전달"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:47.532Z",
+      "elapsedMs": 23466,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_015kkmFyUmXXQsrpZ4xdsq6k",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "message",
+          "recipient": "team-lead",
+          "content": "안녕!",
+          "summary": "안녕 인사 전달"
+        },
+        "tool_response": {
+          "success": true,
+          "message": "Message sent to team-lead's inbox",
+          "routing": {
+            "sender": "worker",
+            "senderColor": "blue",
+            "target": "@team-lead",
+            "targetColor": "red",
+            "summary": "안녕 인사 전달",
+            "content": "안녕!"
+          }
+        },
+        "tool_use_id": "toolu_015kkmFyUmXXQsrpZ4xdsq6k"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "message",
+        "recipient": "team-lead",
+        "content": "안녕!",
+        "summary": "안녕 인사 전달"
+      },
+      "toolResponse": {
+        "success": true,
+        "message": "Message sent to team-lead's inbox",
+        "routing": {
+          "sender": "worker",
+          "senderColor": "blue",
+          "target": "@team-lead",
+          "targetColor": "red",
+          "summary": "안녕 인사 전달",
+          "content": "안녕!"
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:50.144Z",
+      "elapsedMs": 26077,
+      "hookEvent": "TeammateIdle",
+      "toolUseId": "7ed91f10-3949-43a7-a916-ac31e6beb293",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "TeammateIdle",
+        "teammate_name": "worker",
+        "team_name": "poc-hook-team"
+      },
+      "teammateName": "worker",
+      "teamName": "poc-hook-team"
+    },
+    {
+      "timestamp": "2026-03-03T14:23:52.326Z",
+      "elapsedMs": 28260,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_01E6Ld2pdhFAfbB3icpEmkuA",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "shutdown_request",
+          "recipient": "worker",
+          "content": "모든 작업이 완료되었습니다. 종료해 주세요."
+        },
+        "tool_use_id": "toolu_01E6Ld2pdhFAfbB3icpEmkuA"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "shutdown_request",
+        "recipient": "worker",
+        "content": "모든 작업이 완료되었습니다. 종료해 주세요."
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:52.333Z",
+      "elapsedMs": 28267,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_01E6Ld2pdhFAfbB3icpEmkuA",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "shutdown_request",
+          "recipient": "worker",
+          "content": "모든 작업이 완료되었습니다. 종료해 주세요."
+        },
+        "tool_response": {
+          "success": true,
+          "message": "Shutdown request sent to worker. Request ID: shutdown-1772547832330@worker",
+          "request_id": "shutdown-1772547832330@worker",
+          "target": "worker"
+        },
+        "tool_use_id": "toolu_01E6Ld2pdhFAfbB3icpEmkuA"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "shutdown_request",
+        "recipient": "worker",
+        "content": "모든 작업이 완료되었습니다. 종료해 주세요."
+      },
+      "toolResponse": {
+        "success": true,
+        "message": "Shutdown request sent to worker. Request ID: shutdown-1772547832330@worker",
+        "request_id": "shutdown-1772547832330@worker",
+        "target": "worker"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:53.893Z",
+      "elapsedMs": 29827,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_01MN3Zc18AdQgoumCGVQ5uZ9",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_use_id": "toolu_01MN3Zc18AdQgoumCGVQ5uZ9"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {}
+    },
+    {
+      "timestamp": "2026-03-03T14:23:53.895Z",
+      "elapsedMs": 29829,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_01MN3Zc18AdQgoumCGVQ5uZ9",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_response": {
+          "success": false,
+          "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+          "team_name": "poc-hook-team"
+        },
+        "tool_use_id": "toolu_01MN3Zc18AdQgoumCGVQ5uZ9"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {},
+      "toolResponse": {
+        "success": false,
+        "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+        "team_name": "poc-hook-team"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:54.076Z",
+      "elapsedMs": 30010,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_01MUKd9t241GVJRBMBvrjqX3",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "message",
+          "recipient": "team-lead",
+          "content": "작업 완료 보고드립니다. 현재 할당된 작업을 모두 마쳤습니다. 추가로 진행할 작업이 있으면 말씀해 주세요.",
+          "summary": "작업 완료 보고"
+        },
+        "tool_use_id": "toolu_01MUKd9t241GVJRBMBvrjqX3"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "message",
+        "recipient": "team-lead",
+        "content": "작업 완료 보고드립니다. 현재 할당된 작업을 모두 마쳤습니다. 추가로 진행할 작업이 있으면 말씀해 주세요.",
+        "summary": "작업 완료 보고"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:54.080Z",
+      "elapsedMs": 30014,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_01MUKd9t241GVJRBMBvrjqX3",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "message",
+          "recipient": "team-lead",
+          "content": "작업 완료 보고드립니다. 현재 할당된 작업을 모두 마쳤습니다. 추가로 진행할 작업이 있으면 말씀해 주세요.",
+          "summary": "작업 완료 보고"
+        },
+        "tool_response": {
+          "success": true,
+          "message": "Message sent to team-lead's inbox",
+          "routing": {
+            "sender": "worker",
+            "senderColor": "blue",
+            "target": "@team-lead",
+            "targetColor": "red",
+            "summary": "작업 완료 보고",
+            "content": "작업 완료 보고드립니다. 현재 할당된 작업을 모두 마쳤습니다. 추가로 진행할 작업이 있으면 말씀해 주세요."
+          }
+        },
+        "tool_use_id": "toolu_01MUKd9t241GVJRBMBvrjqX3"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "message",
+        "recipient": "team-lead",
+        "content": "작업 완료 보고드립니다. 현재 할당된 작업을 모두 마쳤습니다. 추가로 진행할 작업이 있으면 말씀해 주세요.",
+        "summary": "작업 완료 보고"
+      },
+      "toolResponse": {
+        "success": true,
+        "message": "Message sent to team-lead's inbox",
+        "routing": {
+          "sender": "worker",
+          "senderColor": "blue",
+          "target": "@team-lead",
+          "targetColor": "red",
+          "summary": "작업 완료 보고",
+          "content": "작업 완료 보고드립니다. 현재 할당된 작업을 모두 마쳤습니다. 추가로 진행할 작업이 있으면 말씀해 주세요."
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:56.377Z",
+      "elapsedMs": 32311,
+      "hookEvent": "TeammateIdle",
+      "toolUseId": "7878005b-2841-45bd-95fb-6180c1184515",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "TeammateIdle",
+        "teammate_name": "worker",
+        "team_name": "poc-hook-team"
+      },
+      "teammateName": "worker",
+      "teamName": "poc-hook-team"
+    },
+    {
+      "timestamp": "2026-03-03T14:23:59.436Z",
+      "elapsedMs": 35370,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_01WiuQUvRVdjWjB4sX1mskhm",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "shutdown_response",
+          "request_id": "shutdown-1772547832330@worker",
+          "approve": true
+        },
+        "tool_use_id": "toolu_01WiuQUvRVdjWjB4sX1mskhm"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "shutdown_response",
+        "request_id": "shutdown-1772547832330@worker",
+        "approve": true
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:23:59.440Z",
+      "elapsedMs": 35374,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_01WiuQUvRVdjWjB4sX1mskhm",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "SendMessage",
+        "tool_input": {
+          "type": "shutdown_response",
+          "request_id": "shutdown-1772547832330@worker",
+          "approve": true
+        },
+        "tool_response": {
+          "success": true,
+          "message": "Shutdown approved. Sent confirmation to team-lead. Agent worker is now exiting.",
+          "request_id": "shutdown-1772547832330@worker"
+        },
+        "tool_use_id": "toolu_01WiuQUvRVdjWjB4sX1mskhm"
+      },
+      "toolName": "SendMessage",
+      "toolInput": {
+        "type": "shutdown_response",
+        "request_id": "shutdown-1772547832330@worker",
+        "approve": true
+      },
+      "toolResponse": {
+        "success": true,
+        "message": "Shutdown approved. Sent confirmation to team-lead. Agent worker is now exiting.",
+        "request_id": "shutdown-1772547832330@worker"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:24:01.876Z",
+      "elapsedMs": 37810,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_019qWi9rqQiciueKr8rjB9AF",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_use_id": "toolu_019qWi9rqQiciueKr8rjB9AF"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {}
+    },
+    {
+      "timestamp": "2026-03-03T14:24:01.877Z",
+      "elapsedMs": 37811,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_019qWi9rqQiciueKr8rjB9AF",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_response": {
+          "success": false,
+          "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+          "team_name": "poc-hook-team"
+        },
+        "tool_use_id": "toolu_019qWi9rqQiciueKr8rjB9AF"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {},
+      "toolResponse": {
+        "success": false,
+        "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+        "team_name": "poc-hook-team"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:24:08.631Z",
+      "elapsedMs": 44565,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_01M2yb4xoLWpaaK3xN9VCPgS",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_use_id": "toolu_01M2yb4xoLWpaaK3xN9VCPgS"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {}
+    },
+    {
+      "timestamp": "2026-03-03T14:24:08.632Z",
+      "elapsedMs": 44566,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_01M2yb4xoLWpaaK3xN9VCPgS",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_response": {
+          "success": false,
+          "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+          "team_name": "poc-hook-team"
+        },
+        "tool_use_id": "toolu_01M2yb4xoLWpaaK3xN9VCPgS"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {},
+      "toolResponse": {
+        "success": false,
+        "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+        "team_name": "poc-hook-team"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:24:18.900Z",
+      "elapsedMs": 54834,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_01TmA2tgYeFSTKswoHtr9Xtq",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_use_id": "toolu_01TmA2tgYeFSTKswoHtr9Xtq"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {}
+    },
+    {
+      "timestamp": "2026-03-03T14:24:18.902Z",
+      "elapsedMs": 54836,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_01TmA2tgYeFSTKswoHtr9Xtq",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_response": {
+          "success": false,
+          "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+          "team_name": "poc-hook-team"
+        },
+        "tool_use_id": "toolu_01TmA2tgYeFSTKswoHtr9Xtq"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {},
+      "toolResponse": {
+        "success": false,
+        "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+        "team_name": "poc-hook-team"
+      }
+    },
+    {
+      "timestamp": "2026-03-03T14:24:27.898Z",
+      "elapsedMs": 63832,
+      "hookEvent": "PreToolUse",
+      "toolUseId": "toolu_019ubsvpuEH3tLi2A1qxAf7o",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PreToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_use_id": "toolu_019ubsvpuEH3tLi2A1qxAf7o"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {}
+    },
+    {
+      "timestamp": "2026-03-03T14:24:27.899Z",
+      "elapsedMs": 63833,
+      "hookEvent": "PostToolUse",
+      "toolUseId": "toolu_019ubsvpuEH3tLi2A1qxAf7o",
+      "isAgentTeams": true,
+      "rawInput": {
+        "session_id": "6ce9907b-cf00-431a-9152-dea7ddcac479",
+        "transcript_path": "C:\\Users\\yeongyu\\.claude\\projects\\C--Users-yeongyu-adev-poc-guide-poc\\6ce9907b-cf00-431a-9152-dea7ddcac479.jsonl",
+        "cwd": "C:\\Users\\yeongyu\\adev-poc-guide\\poc",
+        "permission_mode": "bypassPermissions",
+        "hook_event_name": "PostToolUse",
+        "tool_name": "TeamDelete",
+        "tool_input": {},
+        "tool_response": {
+          "success": false,
+          "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+          "team_name": "poc-hook-team"
+        },
+        "tool_use_id": "toolu_019ubsvpuEH3tLi2A1qxAf7o"
+      },
+      "toolName": "TeamDelete",
+      "toolInput": {},
+      "toolResponse": {
+        "success": false,
+        "message": "Cannot cleanup team with 1 active member(s): worker. Use requestShutdown to gracefully terminate teammates first.",
+        "team_name": "poc-hook-team"
+      }
+    }
+  ],
+  "hookEventCounts": {
+    "PreToolUse": 12,
+    "PostToolUse": 12,
+    "TeammateIdle": 2
+  },
+  "toolCallsFromStream": [
+    {
+      "name": "TeamCreate",
+      "elapsedMs": 14860
+    },
+    {
+      "name": "Agent",
+      "elapsedMs": 18940
+    },
+    {
+      "name": "SendMessage",
+      "elapsedMs": 22819
+    },
+    {
+      "name": "SendMessage",
+      "elapsedMs": 28260
+    },
+    {
+      "name": "TeamDelete",
+      "elapsedMs": 29826
+    },
+    {
+      "name": "TeamDelete",
+      "elapsedMs": 37809
+    },
+    {
+      "name": "TeamDelete",
+      "elapsedMs": 44564
+    },
+    {
+      "name": "TeamDelete",
+      "elapsedMs": 54832
+    },
+    {
+      "name": "TeamDelete",
+      "elapsedMs": 63831
+    }
+  ],
+  "resultEvent": {
+    "subtype": "success",
+    "result": "---\n\n## 📊 실행 결과 요약\n\n각 단계의 결과를 정리합니다:\n\n| 단계 | 작업 | 결과 |\n|------|------|------|\n| 1️⃣ | **팀 생성** `poc-hook-team` | ✅ 성공 |\n| 2️⃣ | **worker teammate 추가** + 태스크 부여 (\"안녕이라고 답해\") | ✅ 성공 (`worker@poc-hook-t",
+    "total_cost_usd": 0.7847304999999999,
+    "duration_ms": 66982,
+    "num_turns": 10
+  },
+  "error": null,
+  "nextStep": "P2-3 PASS → 아키텍처 확정: Hooks 기반 stream-monitor"
+}
