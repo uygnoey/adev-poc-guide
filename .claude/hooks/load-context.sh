@@ -6,14 +6,15 @@ PROJECT_DIR="$CLAUDE_PROJECT_DIR"
 
 echo "=== [Hook: load-context] 프로젝트 컨텍스트 로드 ==="
 
-# 1. CLAUDE.md 읽기
-if [ -f "$PROJECT_DIR/CLAUDE.md" ]; then
+# 1. 모든 CLAUDE.md 읽기 (루트 + 하위 폴더)
+find "$PROJECT_DIR" -name "CLAUDE.md" -not -path "*/node_modules/*" -not -path "*/.git/*" 2>/dev/null | sort | while read -r md; do
+  rel="${md#$PROJECT_DIR/}"
   echo ""
-  echo "--- CLAUDE.md ---"
-  cat "$PROJECT_DIR/CLAUDE.md"
+  echo "--- $rel ---"
+  cat "$md"
   echo ""
-  echo "--- /CLAUDE.md ---"
-fi
+  echo "--- /$rel ---"
+done
 
 # 2. .claude/ 폴더 구조
 echo ""
