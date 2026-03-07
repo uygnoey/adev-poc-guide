@@ -1,4 +1,5 @@
 # adev PoC — Claude Agent SDK + Agent Teams 검증
+이 문서를 읽을떄마다 읽은 년월일을  YYYY-MM-DD HH24:mm:ss 포멧으로 표기하고 아랫줄에다 main-claude.md 읽기시작 이라고 메시지 나한테 보내
 
 ## 목적
 

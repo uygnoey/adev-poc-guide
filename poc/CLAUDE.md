@@ -49,3 +49,4 @@ bun run p3
 # 타입 체크:
 bun run typecheck
 ```
+이 문서와 ../CALUDE.md 문서 모두 여기까지 모두 읽었으면 다읽은 시점의 시간을 HH24:mm:ss 포멧으로 표기하고 아랫줄에다 main-claude.md 읽음 이라고 메시지 나한테 보내

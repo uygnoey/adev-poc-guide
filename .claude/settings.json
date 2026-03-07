@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/load-context.sh",
+            "timeout": 10,
+            "statusMessage": "프로젝트 컨텍스트 로딩..."
+          }
+        ]
+      }
+    ]
+  }
+}
